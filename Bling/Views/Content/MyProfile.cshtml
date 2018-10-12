@@ -1,0 +1,97 @@
+﻿@model ProofOfConcept.Models.UserDetails
+
+<div>
+    <h4>UserDetails</h4>
+    <hr />
+    <div class="col-lg-4 col-md-4 col-sm-6 text-center" >
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+            <img src="@Model.ProfilePic" style="width:150px">
+        </div>
+        
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center" >
+            @Html.ActionLink("Change Pic", "ChangeProfilePic", new { id = Model.UserID }, htmlAttributes: new { @class = "text-center" })
+        </div>
+    </div>
+
+    <div class=" col-lg-8 col-md-8 col-sm-6" >
+        
+        <table class="col-sm-7" style="margin-left:40px">
+            <tr>
+                <td class="text-bold">
+                    @Html.DisplayNameFor(model => model.Username)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Username)
+                </td>
+            </tr>
+
+            <tr>
+                <td class="text-bold">
+                    @Html.DisplayNameFor(model => model.Name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Name)
+                </td>
+            </tr>
+
+            <tr>
+                <td class="text-bold col">
+                    @Html.DisplayNameFor(model => model.Email)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Email)
+                </td>
+            </tr>
+
+            <tr>
+                <td class="text-bold">
+                    @Html.DisplayNameFor(model => model.Gender)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Gender)
+                </td>
+            </tr>
+
+            <tr>
+
+                <td class="text-bold">
+                    @Html.DisplayNameFor(model => model.DOB)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.DOB)
+                </td>
+            </tr>
+
+            @{ if (Model.Bio != null)
+        {
+            <tr>
+                <td class="text-bold">
+                    @Html.DisplayNameFor(model => model.Bio)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Bio)
+                </td>
+            </tr>
+
+}
+            }
+            <tr>
+                <td>
+                    <p class="text-center">
+                        @Html.ActionLink("Edit", "Edit", new { id = Model.UserID })
+                    </p>
+                </td>
+            </tr>
+        </table>
+       
+      
+    </div>
+    
+</div>
+

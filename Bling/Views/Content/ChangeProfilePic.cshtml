@@ -1,0 +1,50 @@
+﻿<h4>Choose Picture</h4>
+<hr />
+<br />
+@{var ActionName = "";
+    var ControllerName = "";
+    if (ViewBag.UploadType == "ChangeProfilePic")
+    {
+        ActionName = "ChangeProfilePic";
+        ControllerName = "Content";
+    }else if(ViewBag.UploadType == "Upload Pic")
+    {
+        ActionName = "UploadPic";
+        ControllerName = "Photos";
+    }
+}
+@using (Html.BeginForm(ActionName, ControllerName, FormMethod.Post, new { encType = "multipart/form-data" }))
+{
+    <p style="color:red">@ViewBag.Status</p>
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.Label("Profile Pic", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("profilePic", "" ,htmlAttributes:new {@class="Required", type = "file" ,id="picfield"})
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Upload" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<div>
+    <h6>Picture Preview</h6>
+    <span id="previewfield"></span>
+</div>
+
+<script>
+    $('#picfield').change(function () {
+        if (this.files && this.files[0]) {
+        $('#previewfield').html("<img src=" + $('#picfield').val() + " id='picpreview'alt='Picture Preview' width='200vh' / >");
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#picpreview').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+</script>

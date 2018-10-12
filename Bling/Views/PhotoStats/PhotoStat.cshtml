@@ -1,0 +1,32 @@
+﻿@model ProofOfConcept.Models.PhotoStats
+
+<span>@Html.DisplayFor(modelItem => modelItem.Loves)</span>
+@{ var user_Stat = ViewBag.my_Stat.ToString();
+    if (user_Stat == "Loved")
+    {
+        <span class="glyphicon glyphicon-heart" style="color:hotpink"></span>
+    }
+    else
+    {
+        <span class="glyphicon glyphicon-heart-empty" style="color:hotpink"></span>}
+}|
+<span>@Html.DisplayFor(modelItem => modelItem.Likes)</span>
+@{ if (user_Stat == "Liked")
+    {
+        <span class="glyphicon glyphicon-thumbs-up" style="color:green;font-weight:bold"></span>
+    }
+    else
+    {
+        <span class="glyphicon glyphicon-thumbs-up"></span>}
+}|
+<span>@Html.DisplayFor(modelItem => modelItem.Dislikes)</span>
+@{
+    if (user_Stat == "Disliked")
+    {
+        <span class="glyphicon glyphicon-thumbs-down" style="color:red;font-weight:bold"></span>}
+    else
+    {
+        <span class="glyphicon glyphicon-thumbs-down"></span>}
+}
+
+

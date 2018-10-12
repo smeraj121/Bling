@@ -1,0 +1,84 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+    ViewBag.Title = "Profiler";
+}
+<div id="Modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" id="modalbod">
+            @*@{ Html.RenderAction("Register", "User"); }*@
+        </div>
+    </div>
+</div>
+<div id="registerModel" style="width:35% !important; position:absolute;z-index:1; right:5% !important;">
+    @*@{ Html.RenderAction("Register", "User"); }*@
+</div>
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+        <li data-target="#myCarousel" data-slide-to="4"></li>
+    </ol>
+    @{ var images = @ViewBag.Images; }
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="@images[0]" style="height:80vh;opacity:0.6"" alt="Los Angeles">
+        </div>
+        @{ foreach (string image in images)
+            {
+                <div class="item">
+                    <img src="@image" alt="image" style="height:80vh;opacity:0.6"/>
+                </div>
+            }
+        }
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#Modal" onclick="RegisterModal()">Create New</button>
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#Modal" onclick="LoginModal()">Login</button>
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: '@Url.Action("Register", "User")',
+                dataType: 'html',
+                success: function (content) {
+                    $("#registerModel").html(content);
+                }
+            });
+        });
+    function RegisterModal() {
+        $.ajax({
+            url: '@Url.Action("Register", "User")',
+                dataType: 'html',
+                success: function (content) {
+                    $("#modalbod").html(content);
+                    $('#Modal').modal('show');
+                }
+        });
+    }
+
+    function LoginModal(){
+        $.ajax({
+                url: '@Url.Action("Login", "User")',
+                dataType: 'html',
+                type: 'GET',
+                success: function (content) {
+                    $("#modalbod").html(content);
+                    $('#Modal').modal('show');
+                }
+        });
+    }
+    </script>
