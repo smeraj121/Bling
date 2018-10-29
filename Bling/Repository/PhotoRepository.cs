@@ -41,6 +41,9 @@ namespace ProofOfConcept.Repository
                         DisLikedBy = (dr["DislikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                         LovedBy = (dr["LovedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                         DOU = Convert.ToDateTime(dr["dou"]),
+                        ContentType = Convert.ToString(dr["ContentType"]),
+                        Thumbnail= Convert.ToString(dr["Thumnail"]),
+                        Gif= Convert.ToString(dr["Gif"])
                     });
             }
             return photos;
@@ -75,11 +78,11 @@ namespace ProofOfConcept.Repository
             return photos;
         }
 
-        public bool UploadPic(string path, string email,string caption)
+        public bool UploadPic(string path, string email,string caption, string filetype)
         {
             int i = 0;
             string dou = DateTime.Now.ToString("dd MMM, yyyy");
-            SqlCommand cmd = new SqlCommand("insert into AllPhotos values(@email,@path,',',',',',',@caption,@dou)", sqlConnection);
+            SqlCommand cmd = new SqlCommand("insert into AllPhotos values(@email,@path,',',',',',',@caption,@dou,"+filetype+",NULL,NULL)", sqlConnection);
             //cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@email", email);
             cmd.Parameters.AddWithValue("@path", path);

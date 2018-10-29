@@ -36,7 +36,7 @@
 <div>
     @Html.ActionLink("Back to Uploads", "Uploads")
 </div>
-<div>
+<div class="previewdiv">
     <h6>Picture Preview</h6>
     <span id="previewfield"></span>
 </div>
@@ -47,6 +47,7 @@
             $('#previewfield').html("<img src=" + $('#picfield').val() + " id='picpreview'alt='Picture Preview' width='200vh' / >");
             var reader = new FileReader();
             reader.onload = function (e) {
+                $('.previewdiv').show();
                 $('#picpreview').attr('src', e.target.result);
             }
             reader.readAsDataURL(this.files[0]);

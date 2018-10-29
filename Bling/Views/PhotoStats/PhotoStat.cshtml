@@ -1,32 +1,11 @@
-﻿@model ProofOfConcept.Models.PhotoStats
-
+﻿@model ProofOfConcept.Models.Photos
+<div class="col-lg-12 col-md-12 col-sm-12 thumbnail img-responsive text-center">
+    <img src="@Model.PhotoPath" style="width:inherit" />
+</div>
 <span>@Html.DisplayFor(modelItem => modelItem.Loves)</span>
-@{ var user_Stat = ViewBag.my_Stat.ToString();
-    if (user_Stat == "Loved")
-    {
-        <span class="glyphicon glyphicon-heart" style="color:hotpink"></span>
-    }
-    else
-    {
-        <span class="glyphicon glyphicon-heart-empty" style="color:hotpink"></span>}
-}|
+@{ var user_Stat = ViewBag.my_Stat.ToString(); }
+<span class="glyphicon @{(user_Stat == "Loved") ? "glyphicon-heart" : "glyphicon-heart-empty"}" style="color:hotpink"></span>|
 <span>@Html.DisplayFor(modelItem => modelItem.Likes)</span>
-@{ if (user_Stat == "Liked")
-    {
-        <span class="glyphicon glyphicon-thumbs-up" style="color:green;font-weight:bold"></span>
-    }
-    else
-    {
-        <span class="glyphicon glyphicon-thumbs-up"></span>}
-}|
+<span class='glyphicon glyphicon-thumbs-up @{(user_Stat == "Liked") ? "liked" : ""}'></span> |
 <span>@Html.DisplayFor(modelItem => modelItem.Dislikes)</span>
-@{
-    if (user_Stat == "Disliked")
-    {
-        <span class="glyphicon glyphicon-thumbs-down" style="color:red;font-weight:bold"></span>}
-    else
-    {
-        <span class="glyphicon glyphicon-thumbs-down"></span>}
-}
-
-
+<span class="glyphicon glyphicon-thumbs-down @{(user_Stat == "Disliked") ? "disliked" : "";} "></span>

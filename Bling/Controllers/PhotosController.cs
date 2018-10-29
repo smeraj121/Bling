@@ -18,19 +18,19 @@ namespace ProofOfConcept.Controllers
 
         public ActionResult Upload()
         {
-            //ViewBag.UploadType = "Upload Pic";
-            return View();
+            ViewBag.UploadType = "Upload Pic";
+            return View("UploadPic");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Upload(HttpPostedFileBase picture, string caption)
+        public ActionResult Upload(HttpPostedFileBase file, string caption)
         {
             if(Session["LoggedIn"]!=null && (bool)Session["LoggedIn"] == true)
             {
-                if (picture != null && picture.ContentLength > 0 && picture.ContentType.Contains("image"))
+                if (file != null && file.ContentLength > 0 && (file.ContentType.Contains("image") || file.ContentType.Contains("video")))
                 {
-                    bool result = photoService.UploadPic(picture, Session["Email"].ToString(), caption);
+                    bool result = photoService.UploadPic(file, Session["Email"].ToString(), caption);
                     if (result != false) { }
                     else
                     {
@@ -39,8 +39,10 @@ namespace ProofOfConcept.Controllers
                     }
                 }
                 else {
-                    ModelState.AddModelError("PhotoPath", "Please select an image to upload");
-                    return View();
+                    //ModelState.AddModelError("PhotoPath", "Please select an image to upload");
+                    ViewBag.Status = "Please select an image to upload";
+                    ViewBag.UploadType = "Upload Pic";
+                    return View("UploadPic");
                 }
                 return RedirectToAction("Uploads");
             }

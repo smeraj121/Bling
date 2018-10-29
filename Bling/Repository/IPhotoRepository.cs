@@ -6,7 +6,7 @@ namespace ProofOfConcept.Repository
 {
     public interface IPhotoRepository
     {
-        bool UploadPic(string path, string email,string caption);
+        bool UploadPic(string path, string email,string caption,string filetype);
         List<Photos> GetUploads();
         List<Photos> GetUploads(string email);
     }

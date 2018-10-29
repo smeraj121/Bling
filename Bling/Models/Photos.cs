@@ -29,7 +29,7 @@ namespace ProofOfConcept.Models
         [DataType(DataType.Date)]
         public DateTime DOU { get; set; }
 
-        public int Likes { get { /*if (LikedBy.Split(',')[0] == "") return LikedBy.Split(',').Count() - 2; else */return LikedBy.Split(',').Count()-2;  }
+        public int Likes { get { return LikedBy.Split(',').Count()-2;  }
             /*get { if (LikedBy[0] != 0) return LikedBy.Count(); else return 0; }*/ }
 
         public int Dislikes { get {/* if (DisLikedBy.Split(',')[0] == "") return DisLikedBy.Split(',').Count() - 2; else */return DisLikedBy.Split(',').Count()-2; } 
@@ -37,5 +37,12 @@ namespace ProofOfConcept.Models
 
         public int Loves { get {/* if (LovedBy.Split(',')[0] == "") return LovedBy.Split(',').Count() - 2; else */return LovedBy.Split(',').Count()-2; }
             /*get { if (LovedBy[0] != 0) return LovedBy.Count(); else return 0; }*/ }
+
+        public string ContentType { get; set; }
+
+        public string Thumbnail { get; set; }
+
+        public string Gif { get; set; }
+
     }
 }

@@ -17,6 +17,11 @@ namespace ProofOfConcept.Controllers
             bool loggedin = (bool)Session["LoggedIn"];
             if (loggedin == true)
             {
+                var user = userDetails.GetUser(Session["Email"].ToString());
+                string[] path = user.ProfilePic.Split('/');path[6] = "w_400,h_400,c_crop,g_face,r_max/w_200";
+                var newpath = string.Join("/", path);
+                Session["ProfilePic"] = newpath;
+                Session["Username"] = user.Username;
                 string email = (string)TempData["Email"];
                 return View();
             }

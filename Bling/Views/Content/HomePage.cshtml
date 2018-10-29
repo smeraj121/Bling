@@ -1,6 +1,21 @@
-﻿<ul>
-    <li>@Html.ActionLink("Home", "HomePage", "Content")</li>
-    <li>@Html.ActionLink("My Profile", "MyProfile", "Content")</li>
-    <li>@Html.ActionLink("Uploads", "Uploads", "Photos")</li>
-    <li>@Html.ActionLink("Popular", "Popular", "Populars")</li>
-</ul>
+﻿<div>
+    <div class="featured" style="height:210px">
+        <h3 style="color:maroon">#featured</h3>
+    </div>
+    <div class="trending" style="height:200px">
+        <h3 style="color:maroon">#trending</h3>
+        <hr />
+    </div>
+    <div class="monthlypic" style="height:200px">
+        <h3 style="color:maroon">#picture of the month</h3>
+        <hr />
+    </div>
+
+
+    <ul>
+        <li>@Html.ActionLink("Home", "HomePage", "Content")</li>
+        <li>@Html.ActionLink("My Profile", "MyProfile", "Content")</li>
+        <li>@Html.ActionLink("Uploads", "Uploads", "Photos")</li>
+        <li>@Html.ActionLink("Popular", "Popular", "Populars")</li>
+    </ul>
+</div>

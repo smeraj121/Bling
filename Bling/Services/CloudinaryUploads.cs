@@ -28,6 +28,21 @@ namespace ProofOfConcept.Services
             return "Not Found";
         }
 
+        public static string UploadVideo(HttpPostedFileBase video)
+        {
+            var uploadParams = new VideoUploadParams()
+            {
+                File = new FileDescription(video.FileName, video.InputStream)
+            };
+            var uploadResult = cloudinary.Upload(uploadParams);
+            if ((int)uploadResult.StatusCode >= 200 && (int)uploadResult.StatusCode <= 299)
+            {
+                string path = uploadResult.Uri.ToString();
+                return path;
+            }
+            return "Not Found";
+        }
+
         internal static void DeletePreviousProfilePic(string result)
         {
             var deletefile = result.Split('/')[7].Split('.')[0];

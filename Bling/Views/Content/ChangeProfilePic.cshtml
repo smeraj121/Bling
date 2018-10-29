@@ -1,4 +1,4 @@
-﻿<h4>Choose Picture</h4>
+﻿<div> <h4>Choose Picture</h4>
 <hr />
 <br />
 @{var ActionName = "";
@@ -31,17 +31,18 @@
         </div>
     </div>
 }
-<div>
+<div class="previewdiv" style="display:none">
     <h6>Picture Preview</h6>
     <span id="previewfield"></span>
 </div>
-
+</div>
 <script>
     $('#picfield').change(function () {
         if (this.files && this.files[0]) {
         $('#previewfield').html("<img src=" + $('#picfield').val() + " id='picpreview'alt='Picture Preview' width='200vh' / >");
             var reader = new FileReader();
             reader.onload = function (e) {
+                $('.previewdiv').show();
                 $('#picpreview').attr('src', e.target.result);
             }
             reader.readAsDataURL(this.files[0]);

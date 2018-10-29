@@ -1,17 +1,20 @@
 ﻿<h4>Choose Picture</h4>
 <hr />
 <br />
-@{var ActionName = "";
+@{  var ActionName = "";
     var ControllerName = "";
+    var imageonly = "";
     if (ViewBag.UploadType == "Change Profile Pic")
     {
         ActionName = "ChangeProfilePic";
         ControllerName = "Content";
+        imageonly = "image/*";
     }
     else if (ViewBag.UploadType == "Upload Pic")
     {
         ActionName = "Upload";
         ControllerName = "Photos";
+        imageonly = null;
     }
 }
 @using (Html.BeginForm(ActionName, ControllerName, FormMethod.Post, new { encType = "multipart/form-data" }))
@@ -23,7 +26,15 @@
             @ViewBag.Status
             @Html.Label("Photo", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBox("picture", "", htmlAttributes: new { @class = "Required", type = "file", id = "picfield" })
+                @{ if (ViewBag.UploadType == "ChangeProfilePic")
+                    {
+                        @Html.TextBox("file", "", htmlAttributes: new { @class = "Required", type = "file", id = "picfield", accept = @imageonly })
+                    }
+                    else
+                    { @Html.TextBox("file", "", htmlAttributes: new { @class = "Required", type = "file", id = "picfield" })
+                }
+                }
+                @*@Html.TextBox("file", "", htmlAttributes: new { @class = "Required", type = "file", id = "picfield", accept = @imageonly })*@
             </div>
         </div>
             @{  if (ViewBag.UploadType == "Upload Pic")
@@ -44,7 +55,7 @@
         </div>
     </div>
 }
-<div>
+<div class="previewdiv" style="display:none">
     <h6>Picture Preview</h6>
     <span id="previewfield"></span>
 </div>
@@ -52,11 +63,17 @@
 <script>
     $('#picfield').change(function () {
         if (this.files && this.files[0]) {
-            $('#previewfield').html("<img src=" + $('#picfield').val() + " id='picpreview'alt='Picture Preview' width='200vh' / >");
+            if (this.files[0].type == "image/jpeg")
+                $('#previewfield').html("<img src=" + $('#picfield').val() + " id='preview' alt='Picture Preview' width='200vh' / >");
+            else if (this.files[0].type == "video/mp4")
+                $('#previewfield').html("<video width='200vh' controls><source id='preview' src = " + $('#picfield').val() + "> Video Preview</video>");
             var reader = new FileReader();
             reader.onload = function (e) {
-                $('#picpreview').attr('src', e.target.result);
+                debugger;
+                $('.previewdiv').show();
+                //.attr('src', e.target.result);
             }
+            $('#preview')[0].src = URL.createObjectURL(this.files[0]);
             reader.readAsDataURL(this.files[0]);
         }
     });

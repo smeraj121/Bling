@@ -44,7 +44,7 @@ namespace ProofOfConcept.Services
             if (photos != null) {
                 var allImages = photos.Select(m => m.PhotoPath).ToList();
                 Random random = new Random();
-                for(int i = 0; i < 10; i++)
+                for(int i = 0;allImages.Count()>0 && i < 10; i++)
                 {
                     int index =random.Next(0, allImages.Count);
                     images[i] = allImages[index];
@@ -54,16 +54,24 @@ namespace ProofOfConcept.Services
             return images;
         }
 
-        public bool UploadPic(HttpPostedFileBase picture, string email,string caption)
+        public bool UploadPic(HttpPostedFileBase file, string email,string caption)
         {
             try {
-                string path = CloudinaryUploads.UploadPicture(picture);
-                if (path != "Not Found")
-                {
-                    bool result = photoRepository.UploadPic(path, email,caption);
-                    if (result)
-                    return true;
+                string path="Not Found";string filetype;
+                if (file.ContentType.Contains("image"))
+                { path = CloudinaryUploads.UploadPicture(file);
+                    filetype = "image";
                 }
+                else
+                { path = CloudinaryUploads.UploadVideo(file);
+                    filetype = "video";
+                }
+                if (path != "Not Found")
+                    {
+                        bool result = photoRepository.UploadPic(path, email, caption,filetype);
+                        if (result)
+                            return true;
+                    }
             }
             catch(Exception e) { }
             return false;
