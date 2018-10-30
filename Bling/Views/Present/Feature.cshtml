@@ -1,0 +1,12 @@
+﻿@model IEnumerable<ProofOfConcept.Models.Photos>
+    @{ Layout = null;
+       ViewBag.Title= "Featured Pictures";}
+<div class="col-lg-12 col-md-12 col-sm-12">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 text-center" style="padding:10px 10px 10px 10px;height:20%" id="@item.PhotoID">
+            @Html.Partial("PhotoStat", item);
+        </div>
+    }
+</div>
+<script src="~/Scripts/Uploads.js"></script>

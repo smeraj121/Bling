@@ -1,6 +1,19 @@
 ﻿@model ProofOfConcept.Models.Photos
 <div class="col-lg-12 col-md-12 col-sm-12 thumbnail img-responsive text-center">
-    <img src="@Model.PhotoPath" style="width:inherit" />
+    @{if (Model.ContentType.Trim() == "Video")
+        {
+            @*<img src="@Model.Thumbnail" style="width:inherit" />
+                <input type="hidden" value="@Model.Gif" />*@
+            <video controls style="width:100%">
+                <source id='preview' src="@Model.PhotoPath"> 
+                Video Preview
+            </video>
+        }
+        else
+        {
+            <img src="@Model.PhotoPath" style="width:inherit" value="tyrytghfc"/>
+        }
+    }
 </div>
 <div id="stats">
     <span>@Html.DisplayFor(modelItem => Model.Loves)</span>

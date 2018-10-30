@@ -42,8 +42,8 @@ namespace ProofOfConcept.Repository
                         LovedBy = (dr["LovedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                         DOU = Convert.ToDateTime(dr["dou"]),
                         ContentType = Convert.ToString(dr["ContentType"]),
-                        Thumbnail= Convert.ToString(dr["Thumnail"]),
-                        Gif= Convert.ToString(dr["Gif"])
+                        Thumbnail= Convert.ToString(dr["VideoThumbnail"]),
+                        Gif= Convert.ToString(dr["VideoGif"])
                     });
             }
             return photos;
@@ -52,7 +52,7 @@ namespace ProofOfConcept.Repository
         public List<Photos> GetUploads()
         {
             List<Photos> photos = new List<Photos>();
-            SqlCommand cmd = new SqlCommand("Select * from AllPhotos", sqlConnection);
+            SqlCommand cmd = new SqlCommand("Select * from AllPhotos where contentType='Image'", sqlConnection);
             //cmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -82,7 +82,7 @@ namespace ProofOfConcept.Repository
         {
             int i = 0;
             string dou = DateTime.Now.ToString("dd MMM, yyyy");
-            SqlCommand cmd = new SqlCommand("insert into AllPhotos values(@email,@path,',',',',',',@caption,@dou,"+filetype+",NULL,NULL)", sqlConnection);
+            SqlCommand cmd = new SqlCommand("insert into AllPhotos values(@email,@path,',',',',',',@caption,@dou,"+filetype+",0,0)", sqlConnection);
             //cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@email", email);
             cmd.Parameters.AddWithValue("@path", path);
