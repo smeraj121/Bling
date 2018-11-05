@@ -1,20 +1,26 @@
 ﻿@model ProofOfConcept.Models.Photos
-<div class="col-lg-12 col-md-12 col-sm-12 thumbnail img-responsive text-center">
-    @{if (Model.ContentType.Trim() == "Video")
-        {
-            @*<img src="@Model.Thumbnail" style="width:inherit" />
-                <input type="hidden" value="@Model.Gif" />*@
-            <video controls style="width:100%">
-                <source id='preview' src="@Model.PhotoPath"> 
+
+@{if (Model.ContentType.Trim() == "Video")
+    {
+        <a href="@Url.Action("DisplayPhoto", "Photos",new { @photoId=Model.PhotoID})" class="thumbnail img-responsive text-center">
+            <img src="@Model.Thumbnail" class="thumbnails" value="tyrytghfc" />
+            <input type="hidden" value="@Model.Gif" />
+        </a>
+        @*<div class="thumbnail img-responsive text-center">
+                <video controls style="width:100%">
+                <source id='preview' src="@Model.PhotoPath">
                 Video Preview
-            </video>
-        }
-        else
-        {
-            <img src="@Model.PhotoPath" style="width:inherit" value="tyrytghfc"/>
-        }
+                </video>
+            </div>*@
     }
-</div>
+    else
+    {
+        <a href="@Url.Action("DisplayPhoto", "Photos",new { @photoId=Model.PhotoID})" class="thumbnail img-responsive text-center">
+            <img src="@Model.PhotoPath" class="thumbnails" value="tyrytghfc" />
+        </a>
+    }
+}
+
 <div id="stats">
     <span>@Html.DisplayFor(modelItem => Model.Loves)</span>
     @{ var UserId = ViewBag.UserId.ToString(); }

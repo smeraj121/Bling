@@ -47,5 +47,71 @@ namespace ProofOfConcept.Repository
             }
             return photos;
         }
+
+        public List<Photos> GetTrending()
+        {
+            List<Photos> photos = new List<Photos>();
+            SqlCommand cmd = new SqlCommand("Select * from Trending t, allphotos a where t.photoid=a.photoid order by t.trendingorder", sqlConnection);
+            //cmd.CommandType = CommandType.StoredProcedure;
+            //cmd.Parameters.AddWithValue("@email", email);
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+
+            sqlConnection.Open();
+            sda.Fill(dt);
+            sqlConnection.Close();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                photos.Add(
+                    new Photos
+                    {
+                        PhotoID = Convert.ToInt32(dr["photoID"]),
+                        Email = Convert.ToString(dr["Email"]),
+                        PhotoPath = Convert.ToString(dr["PhotoPath"]),
+                        LikedBy = (dr["LikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
+                        DisLikedBy = (dr["DislikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
+                        LovedBy = (dr["LovedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
+                        DOU = Convert.ToDateTime(dr["dou"]),
+                        ContentType = Convert.ToString(dr["ContentType"]),
+                        Thumbnail = Convert.ToString(dr["VideoThumbnail"]),
+                        Gif = Convert.ToString(dr["VideoGif"])
+                    });
+            }
+            return photos;
+        }
+
+        public List<Photos> GetRecentUploads()
+        {
+            List<Photos> photos = new List<Photos>();
+            SqlCommand cmd = new SqlCommand("Select * from allphotos", sqlConnection);
+            //cmd.CommandType = CommandType.StoredProcedure;
+            //cmd.Parameters.AddWithValue("@email", email);
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+
+            sqlConnection.Open();
+            sda.Fill(dt);
+            sqlConnection.Close();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                photos.Add(
+                    new Photos
+                    {
+                        PhotoID = Convert.ToInt32(dr["photoID"]),
+                        Email = Convert.ToString(dr["Email"]),
+                        PhotoPath = Convert.ToString(dr["PhotoPath"]),
+                        LikedBy = (dr["LikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
+                        DisLikedBy = (dr["DislikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
+                        LovedBy = (dr["LovedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
+                        DOU = Convert.ToDateTime(dr["dou"]),
+                        ContentType = Convert.ToString(dr["ContentType"]),
+                        Thumbnail = Convert.ToString(dr["VideoThumbnail"]),
+                        Gif = Convert.ToString(dr["VideoGif"])
+                    });
+            }
+            return photos.OrderByDescending(x => x.ContentType).ToList();
+        }
     }
 }

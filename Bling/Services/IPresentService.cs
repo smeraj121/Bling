@@ -6,5 +6,7 @@ namespace ProofOfConcept.Services
     public interface IPresentService
     {
         List<Photos> Featured();
+        List<Photos> Trending();
+        List<Photos> RecentUploads();
     }
 }

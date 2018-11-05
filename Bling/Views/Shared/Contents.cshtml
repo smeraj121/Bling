@@ -1,0 +1,15 @@
+﻿@model IEnumerable<ProofOfConcept.Models.Photos>
+<div class="picContainer row flex-row flex-nowrap">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6 text-center box" style="padding:15px;height:inherit" id="@item.PhotoID">
+            <div class="imagecontainer thumbnail" id="@item.PhotoID">
+                @Html.Partial("PhotoStat", item)
+            </div>
+        </div>
+    }
+</div>
+<link href="~/Content/stats.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+<script src="~/Scripts/UI.js"></script>
+<script src="~/Scripts/Uploads.js"></script>

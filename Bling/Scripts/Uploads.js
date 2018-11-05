@@ -19,7 +19,7 @@ function setStats(photoid, stat) {
     $('#' + photoid + ' #stats').children()[0].innerHTML = stat.Loves;
     $('#' + photoid + ' #stats').children()[2].innerHTML = stat.Likes;
     $('#' + photoid + ' #stats').children()[4].innerHTML = stat.Dislikes;
-    changeIcons(stat.Stat);
+    changeIcons(photoid,stat.Stat);
     console.log($('#' + photoid + ' #stats').children()[0]);
 }
 function changeIcons(Stat) {
@@ -42,7 +42,7 @@ function Neutral(photostats) {
     } else if ($(photostats.children[5]).hasClass('disliked')) { // if already disliked
         photostats.children[4].innerText = Number(photostats.children[4].innerText) - 1; //remove dislike
         $(photostats.children[5]).removeClass('disliked'); // revert color
-    } else if (photostats.children[1].hasClass("glyphicon-heart")) { // if already hearted
+    } else if ($(photostats.children[1]).hasClass("glyphicon-heart")) { // if already hearted
         photostats.children[0].innerText = Number(photostats.children[0].innerText) - 1; // unheart
         $(photostats.children[1]).removeClass("glyphicon-heart").addClass("glyphicon-heart-empty"); //
     }
@@ -59,19 +59,19 @@ $(document).ready(
             action = "H";
             Neutral(this.parentElement);
         }
-        else if (this.classList[1] == "glyphicon-thumbs-up") {
-            if ($(this).css('color') == 'rgb(0, 0, 0)' || $(this).css('color') == 'rgb(51, 51, 51)') {
+        else if ($(this).hasClass("glyphicon-thumbs-up")) {
+            if (!$(this).hasClass('liked')) {
                 Neutral(this.parentElement);
                 $(this).siblings()[2].innerText = Number($(this).siblings()[2].innerText) + 1;
-                $(this).css({ 'color': 'green', 'font-weight': 'bold' })
+                $(this).addClass("liked");
             } else { Neutral(this.parentElement) }
             action = "L";
         }
-        else if (this.classList[1] == "glyphicon-thumbs-down") {
-            if ($(this).css('color') == 'rgb(0, 0, 0)' || $(this).css('color') == 'rgb(51, 51, 51)') {
+        else if ($(this).hasClass("glyphicon-thumbs-down")) {
+            if ($(this).hasClass("disliked")) {
                 Neutral(this.parentElement)
                 $(this).siblings()[4].innerText = Number($(this).siblings()[4].innerText) + 1;
-                $(this).css({ 'color': 'red', 'font-weight': 'bold' });
+                $(this).addClass('disliked');
 
             } else { Neutral(this.parentElement) }
             action = "D";

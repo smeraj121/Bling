@@ -14,8 +14,7 @@ namespace ProofOfConcept.Controllers
         }
         public ActionResult HomePage()
         {
-            bool loggedin = (bool)Session["LoggedIn"];
-            if (loggedin == true)
+            if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)
             {
                 var user = userDetails.GetUser(Session["Email"].ToString());
                 string[] path = user.ProfilePic.Split('/');path[6] = "w_400,h_400,c_crop,g_face,r_max/w_200";
@@ -36,7 +35,7 @@ namespace ProofOfConcept.Controllers
                 loggedin = (bool)Session["LoggedIn"];
             }
             
-            if (loggedin == true)
+            if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)
             {
                 var user = userDetails.GetUser(Session["Email"].ToString());
                 return View(user);
@@ -48,8 +47,7 @@ namespace ProofOfConcept.Controllers
 
         public ActionResult Edit(int id)
         {
-            bool loggedin = (bool)Session["LoggedIn"];
-            if (loggedin == true)
+            if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)
             {
                 var user = userDetails.GetUser(Session["Email"].ToString());
                 return View(user);
@@ -62,8 +60,7 @@ namespace ProofOfConcept.Controllers
         [HttpPost]
         public ActionResult Edit(UserDetails user)
         {
-            bool loggedin = (bool)Session["LoggedIn"];
-            if (loggedin == true)
+            if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)
             {
                 if (ModelState.IsValid)
                 {
@@ -78,8 +75,7 @@ namespace ProofOfConcept.Controllers
 
         public ActionResult ChangeProfilePic()
         {
-            bool loggedin = (bool)Session["LoggedIn"];
-            if (loggedin == true)
+            if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)
             {
                 //return RedirectToAction("Picture","UploadPic",new { uploadType= "Change Profile Pic" }) ;
                 ViewBag.UploadType = "Change Profile Pic";
@@ -92,8 +88,7 @@ namespace ProofOfConcept.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ChangeProfilePic(HttpPostedFileBase picture) {
-            bool loggedin = (bool)Session["LoggedIn"];
-            if (loggedin == true)
+            if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)
             {
                 if (picture.ContentLength > 0 && picture.ContentType.Contains("image"))
                 {

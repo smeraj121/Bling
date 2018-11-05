@@ -31,7 +31,7 @@ namespace ProofOfConcept.Services
             try
             {
                 //photos = photoRepository.GetUploads().FindAll(m => m.Email==email);
-                photos = photoRepository.GetUploads();
+                photos = photoRepository.GetUploads().FindAll(m=>m.ContentType.Trim()=="Image");
             }
             catch (Exception e) { }
             return photos;
@@ -54,17 +54,28 @@ namespace ProofOfConcept.Services
             return images;
         }
 
+        public Photos GetPhoto(int photoId) {
+            Photos photo = new Photos();
+            try
+            {
+                //photos = photoRepository.GetUploads().FindAll(m => m.Email==email);
+                photo = photoRepository.GetPhoto(photoId);
+            }
+            catch (Exception e) { }
+            return photo;
+        }
+
         public bool UploadPic(HttpPostedFileBase file, string email,string caption)
         {
             try {
                 string path="Not Found";string filetype;
                 if (file.ContentType.Contains("image"))
                 { path = CloudinaryUploads.UploadPicture(file);
-                    filetype = "image";
+                    filetype = "Image";
                 }
                 else
                 { path = CloudinaryUploads.UploadVideo(file);
-                    filetype = "video";
+                    filetype = "Video";
                 }
                 if (path != "Not Found")
                     {
@@ -75,6 +86,11 @@ namespace ProofOfConcept.Services
             }
             catch(Exception e) { }
             return false;
+        }
+
+        public bool SetTrending(int photoId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

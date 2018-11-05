@@ -1,0 +1,59 @@
+﻿@model ProofOfConcept.Models.Photos
+@{
+    ViewBag.Title = "Thumbnail";
+}
+
+<h2>Thumbnail</h2>
+<hr />
+@using (Html.BeginForm("Thumbnail", "Photos", FormMethod.Post, new { encType = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.HiddenFor("@mo")
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @ViewBag.Status
+        <div class="form-group">
+            @Html.LabelFor(model => model.Thumbnail, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("picture", "", htmlAttributes: new { @class = "Required", type = "file", id = "picfield",accept="image" })
+                @Html.ValidationMessageFor(model => model.PhotoPath, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Gif, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <span>Start Time</span>@Html.TextBox("starttime")<br />
+                <span>End Time</span>@Html.TextBox("starttime")<br />
+                @Html.EditorFor(model => model.Gif, new { htmlAttributes = new { @class = "form-control" }, type = "hidden" })
+                @Html.ValidationMessageFor(model => model.Caption, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <button id="seegif">Check</button>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to Uploads", "Uploads")
+</div>
+<div class="previewdiv">
+    <h6>Picture Preview</h6>
+    <span id="previewfield"></span>
+</div>
+
+<script>
+    $('#seegif').click(function () {
+       
+    });
+</script>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

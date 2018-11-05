@@ -18,5 +18,16 @@ namespace ProofOfConcept.Controllers
             ViewBag.UserId = Session["UserID"].ToString();
             return View(ps.Featured().OrderBy(x => rnd.Next()).Take(5));
         }
+
+        public ActionResult Trending() {
+            ViewBag.UserId = Session["UserID"].ToString();
+            return PartialView(ps.Trending().Take(5));
+            return View(ps.Trending().Take(5));
+        }
+
+        public ActionResult RecentUploads() {
+            ViewBag.UserId = Session["UserID"].ToString();
+            return View(ps.RecentUploads().Take(6));
+        }
     }
 }

@@ -7,112 +7,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <style>
-    input[name="searchfield"] { margin: 7px; border-radius: 5px; padding: 3px 30px 2px 15px; }
-        button[name="searchbtn"] {
-            color: white;
-            background-color: cadetblue;
-            border: 3px solid cadetblue;
-            border-radius: 5px;
-        }
-        .text-bold {
-            font-weight: bold;
-        }
-
-        .sidenav {
-            height: 100%;
-            width: 250px;
-            position: fixed;
-            z-index: 1;
-            top: 0;
-            left: 0;
-            background-color: #111;
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
-        }
-
-            .sidenav a {
-                padding: 8px 8px 8px 44px;
-                text-decoration: none;
-                font-size: 20px;
-                color: #818181;
-                display: block;
-                transition: 0.3s;
-            }
-
-                .sidenav a:hover {
-                    color: #f1f1f1;
-                }
-
-            .sidenav .closebtn {
-                position: absolute;
-                top: 0;
-                right: 25px;
-                font-size: 36px;
-                margin-left: 50px;
-            }
-        .test:after {
-            content: '\2807';
-            font-size: 20px;
-            color:white;
-            font-weight:300;
-        }
-        .profilepic {
-            width: 150px;
-            height: auto;
-            border-radius: 50%;
-            border: 8px solid cadetblue
-        }
-        .searchform {
-        float:right;}
-        .name {
-            color: white;
-            text-align: center;
-        }
-        @@media screen and (min-width:1000px) {
-            .body {padding:0 0 0 0 !important;
-            }
-        }
-        @@media screen and (min-width:767px) {
-            .sidenavspace {
-                display: block;
-            }
-        }
-        @@media screen and (max-width:766px) {
-            .sidenav {
-            width:0px;
-            position:fixed;
-            margin-top:50px;
-            padding:0 0 0 0;
-            }
-            .sidenavspace {
-                display: none;
-            }
-        }
-        @@media screen and (max-height: 450px) {
-            .sidenav {
-                padding-top: 15px;
-            }
-             .sidenav a {
-                    font-size: 18px;
-             }
-        }
-    </style>
-    <script>
-        var menuOpen = false;
-        function openNav() {
-            if (menuOpen) { closeNav(); return; }
-            document.getElementById("mySidenav").style.width = "250px";
-            document.getElementById("mySidenav").style.padding = "60px 0 0 0";
-            menuOpen = true;
-        }
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-            document.getElementById("mySidenav").style.padding = "0 0 0 0";
-             menuOpen = false;
-        }
-    </script>
+    <link href="~/Content/Layout.css" rel="stylesheet" />
+    <script src="~/Scripts/Layout.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -130,10 +26,9 @@
                 @Html.ActionLink("Profiler", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                <ul class="nav navbar-nav" style="float:right">
+                    <li>@Html.ActionLink("Change Password", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Sign Out", "About", "Home")</li>
                 </ul>
             </div>
         </div>
@@ -150,20 +45,32 @@
             @Html.ActionLink("Uploads", "Uploads", "Photos")
             @Html.ActionLink("Popular", "Popular", "Populars")
         </div>
-        <div class="sidenavspace col-sm-4 col-md-3 col-lg-2 ">
+        <div class="sidenavspace col-sm-4 col-md-3 col-lg-2 " style="height:100vh">
         </div>
         <div class="body col-md-8 col-lg-8 col-sm-8" style="padding:0 0 0s 50px">
-            <div class="searchform"><form action="#" method="gets">
-                <input type="text" placeholder="Search" value="" name="searchfield" />
-                <button type="submit" name="searchbtn" value=""><span class="glyphicon glyphicon-search"></span></button></form></div>
-        @RenderBody()
+            <div class="searchform">
+                <form action="#" method="gets">
+                    <input type="text" placeholder="Search" value="" name="searchfield" style="max-width:80%"/>
+                    <button type="submit" name="searchbtn" value=""><span class="glyphicon glyphicon-search"></span></button>
+                </form>
+            </div>
+            <br />
+            <div>
+            @RenderBody()
+            </div>
+            <footer style="margin:0 10vh 0 10vh">
+                <hr />
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                <ul>
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+            </footer>
         </div>
     </div>
 
-    <footer style="margin:0 10vh 0 10vh;position:absolute;bottom:0px">
-        <hr />
-        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-    </footer>
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

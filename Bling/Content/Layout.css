@@ -1,0 +1,108 @@
+﻿input[name="searchfield"] {
+    margin: 7px;
+    border-radius: 5px;
+    padding: 3px 30px 2px 15px;
+}
+
+button[name="searchbtn"] {
+    color: white;
+    background-color: cadetblue;
+    border: 3px solid cadetblue;
+    border-radius: 5px;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.sidenav {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+    .sidenav a {
+        padding: 8px 8px 8px 44px;
+        text-decoration: none;
+        font-size: 20px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+    .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+.test:after {
+    content: '\2807';
+    font-size: 20px;
+    color: white;
+    font-weight: 300;
+}
+
+.profilepic {
+    width: 150px;
+    height: auto;
+    border-radius: 50%;
+    border: 8px solid cadetblue
+}
+
+.searchform {
+    float: right;
+}
+
+.name {
+    color: white;
+    text-align: center;
+}
+
+@media screen and (min-width:1000px) {
+    .body {
+        padding: 0 0 0 0 !important;
+    }
+}
+
+@media screen and (min-width:767px) {
+    .sidenavspace {
+        display: block;
+    }
+}
+
+@media screen and (max-width:766px) {
+    .sidenav {
+        width: 0px;
+        position: fixed;
+        margin-top: 50px;
+        padding: 0 0 0 0;
+    }
+
+    .sidenavspace {
+        display: none;
+    }
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+        .sidenav a {
+            font-size: 18px;
+        }
+}

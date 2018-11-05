@@ -25,6 +25,8 @@ namespace ProofOfConcept
               container.RegisterType<IPhotoRepository, PhotoRepository>();
               container.RegisterType<IPhotoStatsRepository, PhotoStatsRepository>();
               container.RegisterType<IPhotoStatsService,PhotoStatsService>();
+              container.RegisterType<IPopularsRepository, PopularsRepository>();
+              container.RegisterType<IPresentService, PresentService>();
               //container.RegisterType<IInstitutionService, InstitutionService>();
               RegisterTypes(container);
               DependencyResolver.SetResolver(new UnityDependencyResolver(container));

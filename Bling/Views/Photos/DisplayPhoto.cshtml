@@ -1,0 +1,92 @@
+﻿@model ProofOfConcept.Models.Photos
+
+@{
+    ViewBag.Title = "DisplayPhoto";
+}
+<style>
+    #stats {
+    font-size:1.5em;
+    text-align:center;
+    margin-top:10px;
+    }
+    .imagecontainer {
+        height: 45vh !important;
+        border:none;
+    }
+    .thumbnails {
+    height:100% !important;
+    border-radius:8px;
+    }
+    .thumbnails {
+        background-color: white;
+        transition: transform 1s;
+        text-align:center;    }
+        .thumbnails:hover {
+            -ms-transform: scale(1.3); /* IE 9 */
+            -webkit-transform: scale(1.3); /* Safari 3-8 */
+            transform: scale(1.3);
+
+        }
+    .photocontainer {
+    height:350px;}
+        .imagecontainer > a {
+            height:100%;        }
+    @@media (min-width: 300px) and (min-height: 400px) and (orientation:portrait) {
+        .imagecontainer {
+            height: auto !important
+        }
+        .thumbnails {
+        height:auto !important;
+        width:100% !important;
+        }
+
+    }
+</style>
+@*<script>$(window).load(() => { $($('.imagecontainer').children()[0]).height($('.imagecontainer').height() - $($('.imagecontainer').children()[1]).height() - 5) })</script>*@
+<h2>DisplayPhoto</h2>
+<hr />
+<div>
+    <span style="font-weight:bold">@Model.Email</span>
+    <span style="float:right">@Model.DOU.ToLongDateString()</span>
+    <br />
+    <br /><div class="box">
+    <div class="imagecontainer text-center">
+        @{if (Model.ContentType.Trim() == "Video")
+            {
+                <video controls style="height:inherit" class="thumbnail img-responsive text-center">
+                    <source id='preview' src="@Model.PhotoPath">
+                    Video Preview
+                </video>
+            }
+            else
+            {
+                <img src="@Model.PhotoPath" class="thumbnails" value="tyrytghfc" />
+            }
+        }
+    </div>
+
+    <div id="stats">
+        <span>@Html.DisplayFor(modelItem => Model.Loves)</span>
+        @{ var UserId = ViewBag.UserId.ToString(); }
+        <span class="glyphicon @((Model.LovedBy.IndexOf("," + UserId + ",") > -1) ? "glyphicon-heart" : "glyphicon-heart-empty") " style="color:hotpink"></span>
+        |
+        <span>@Html.DisplayFor(modelItem => Model.Likes)</span>
+        <span class="glyphicon glyphicon-thumbs-up @((Model.LikedBy.IndexOf("," + UserId + ",") > -1) ? "liked" : "")"></span>
+        |
+        <span>@Html.DisplayFor(modelItem => Model.Dislikes)</span>
+        <span class="glyphicon glyphicon-thumbs-down @((Model.DisLikedBy.IndexOf("," + UserId + ",") > -1) ? "disliked" : "")"></span>
+    </div>
+</div>
+    <br />
+          <span>@Html.DisplayFor(model => model.Caption)A paragraph (from the Ancient Greek παράγραφος paragraphos, "to write beside" or "written beside") is a self-contained unit of a discourse in writing dealing with a particular point or idea. A paragraph consists of one or more sentences.</span>
+</div>
+<p>
+    @Html.ActionLink("Private", "Private", new { id = Model.PhotoID }) |
+    @Html.ActionLink("Delete", "Delete", new { id = Model.PhotoID }) |
+    @Html.ActionLink("Change Caption", "ChangeCaption", new { id = Model.PhotoID }) |
+    @{if (Model.ContentType.Trim() == "Video") { @Html.ActionLink("Change Thumbnail and Preview", "ChangeThumbnail", new { id = Model.PhotoID }); } } |
+
+
+    @Html.ActionLink("Back to List", "Index")
+</p>
+<script src="~/Scripts/Uploads.js"></script>

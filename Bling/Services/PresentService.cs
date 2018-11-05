@@ -14,7 +14,30 @@ namespace ProofOfConcept.Services
             this.pr = pr;
         }
         public List<Photos> Featured() {
-            return pr.GetFeatured();
+            try
+            {
+                return pr.GetFeatured();
+            }
+            catch { }
+            return new List<Photos>();
+        }
+
+        public List<Photos> Trending()
+        {
+            try { 
+            return pr.GetTrending();
+            }
+            catch { }
+            return new List<Photos>();
+        }
+
+        public List<Photos> RecentUploads()
+        {
+            try {
+                return pr.GetRecentUploads();
+            }
+            catch(Exception e) { }
+            return new List<Photos>();
         }
     }
 }

@@ -8,6 +8,8 @@ namespace ProofOfConcept.Repository
     {
         bool UploadPic(string path, string email,string caption,string filetype);
         List<Photos> GetUploads();
+        Photos GetPhoto(int photoId);
         List<Photos> GetUploads(string email);
+        void SetTrending(int photoId);
     }
 }

@@ -1,22 +1,57 @@
-﻿<div>
-    <div class="featured" style="height:210px">
-        <h3 style="color:maroon">#featured</h3>
-        @{ Html.RenderAction("Feature", "Present"); }
+﻿<style>
+    .headers > h3 {
+        margin-top: 0;
+    }
+
+    .picContainer.row.flex-row.flex-nowrap {
+        display: flex;
+        flex: 0 0 25%;
+        flex-shrink:0;
+        max-width: 100%;
+        margin: 0 0 4% 0 !important;
+    }
+
+    .flex-row {
+        display: flex;
+        -webkit-box-orient: horizontal !important;
+        -webkit-box-direction: normal !important;
+        -webkit-flex-direction: row !important;
+        -ms-flex-direction: row !important;
+        flex-direction: row !important;
+    }
+
+    .flex-nowrap {
+        -webkit-flex-wrap: nowrap !important;
+        -ms-flex-wrap: nowrap !important;
+        flex-wrap: nowrap !important;
+</style>
+<div>
+    <div class="picofmonth"></div>
+    <div class="featuredContainer headers" style="height:fit-content;overflow-x: auto;width: 100%;">
+        <a href="#"><h3 style="color:maroon">#featured</h3></a>
+        <hr style="margin: 0 0 0 0"/>
+        <div style="overflow-x:auto;">
+            <div class="featured container-fluid">
+                @{ Html.RenderAction("Feature", "Present"); }
+            </div>
+        </div>
     </div>
-    <div class="trending" style="height:200px">
+    <div class="trending headers" style="height:fit-content;">
         <h3 style="color:maroon">#trending</h3>
-        <hr />
+        <hr style="margin: 0 0 0 0" />
+        <div style="overflow-x:auto;">
+            <div class=" container-fluid">
+                @{ Html.RenderAction("Trending", "Present"); }
+            </div>
+        </div>
     </div>
-    <div class="monthlypic" style="height:200px">
+    <div class="monthlypic headers" style="height:fit-content;">
         <h3 style="color:maroon">#picture of the month</h3>
-        <hr />
+        <hr style="margin: 0 0 0 0" />
+        <div style="overflow-x:auto;">
+            <div class=" container-fluid">
+                @{ Html.RenderAction("RecentUploads", "Present"); }
+            </div>
+        </div>
     </div>
-
-
-    <ul>
-        <li>@Html.ActionLink("Home", "HomePage", "Content")</li>
-        <li>@Html.ActionLink("My Profile", "MyProfile", "Content")</li>
-        <li>@Html.ActionLink("Uploads", "Uploads", "Photos")</li>
-        <li>@Html.ActionLink("Popular", "Popular", "Populars")</li>
-    </ul>
 </div>
