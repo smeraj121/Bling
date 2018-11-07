@@ -71,7 +71,7 @@ namespace ProofOfConcept.Controllers
             if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)
             {
                 string email = Session["Email"].ToString(); 
-                //bool result = photoService.SetTrending(photoId);
+                bool result = photoService.SetTrending(photoId);
                 Photos photo = photoService.GetPhoto(photoId);
                 ViewBag.UserId = Session["UserID"].ToString();
                 return View(photo);

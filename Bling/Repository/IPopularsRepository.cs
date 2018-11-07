@@ -7,6 +7,6 @@ namespace ProofOfConcept.Repository
     {
         List<Photos> GetFeatured();
         List<Photos> GetTrending();
-        List<Photos> GetRecentUploads();
+        List<Photos> GetRecentUploads(int? offset);
     }
 }

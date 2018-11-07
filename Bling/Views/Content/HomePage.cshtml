@@ -3,15 +3,15 @@
         margin-top: 0;
     }
 
-    .picContainer.row.flex-row.flex-nowrap {
+    .container-fluid.picContainer.row.flex-row.flex-nowrap {
         display: flex;
         flex: 0 0 25%;
-        flex-shrink:0;
+        flex-shrink: 0;
         max-width: 100%;
         margin: 0 0 4% 0 !important;
     }
 
-    .flex-row {
+    .container-fluid>.flex-row {
         display: flex;
         -webkit-box-orient: horizontal !important;
         -webkit-box-direction: normal !important;
@@ -25,10 +25,15 @@
         -ms-flex-wrap: nowrap !important;
         flex-wrap: nowrap !important;
 </style>
+<script>$(window).load(() => {
+        var img = $('<img id="featur" style="position: absolute;width: 60px;">');
+        img.attr('src', 'https://res.cloudinary.com/blinging/image/upload/v1541585586/banner-featured.png');
+        img.prependTo('.featured>.picContainer>.box>');
+    });</script>
 <div>
     <div class="picofmonth"></div>
     <div class="featuredContainer headers" style="height:fit-content;overflow-x: auto;width: 100%;">
-        <a href="#"><h3 style="color:maroon">#featured</h3></a>
+        <a href='@Url.Action("Feature", "Present")'><h3 style="color:maroon">#featured</h3></a>
         <hr style="margin: 0 0 0 0"/>
         <div style="overflow-x:auto;">
             <div class="featured container-fluid">
@@ -37,20 +42,20 @@
         </div>
     </div>
     <div class="trending headers" style="height:fit-content;">
-        <h3 style="color:maroon">#trending</h3>
+        <a href='@Url.Action("Trending", "Present")'><h3 style="color:maroon">#trending</h3></a>
         <hr style="margin: 0 0 0 0" />
         <div style="overflow-x:auto;">
-            <div class=" container-fluid">
+            <div class="trendings container-fluid">
                 @{ Html.RenderAction("Trending", "Present"); }
             </div>
         </div>
     </div>
     <div class="monthlypic headers" style="height:fit-content;">
-        <h3 style="color:maroon">#picture of the month</h3>
+        <h3 style="color:maroon">#Recent</h3>
         <hr style="margin: 0 0 0 0" />
-        <div style="overflow-x:auto;">
-            <div class=" container-fluid">
-                @{ Html.RenderAction("RecentUploads", "Present"); }
+        <div>
+            <div class="">
+                @{ Html.RenderAction("RecentUploads", "Present",new { offset="null"}); }
             </div>
         </div>
     </div>

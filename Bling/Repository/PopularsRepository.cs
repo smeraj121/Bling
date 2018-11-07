@@ -81,12 +81,13 @@ namespace ProofOfConcept.Repository
             return photos;
         }
 
-        public List<Photos> GetRecentUploads()
+        public List<Photos> GetRecentUploads(int? offset)
         {
             List<Photos> photos = new List<Photos>();
-            SqlCommand cmd = new SqlCommand("Select * from allphotos", sqlConnection);
+            SqlCommand cmd = new SqlCommand("GetRecent", sqlConnection);
             //cmd.CommandType = CommandType.StoredProcedure;
-            //cmd.Parameters.AddWithValue("@email", email);
+            if(offset!=null)
+            cmd.Parameters.AddWithValue("@offset", offset);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
 

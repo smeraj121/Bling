@@ -11,5 +11,6 @@ namespace ProofOfConcept.Repository
         Photos GetPhoto(int photoId);
         List<Photos> GetUploads(string email);
         void SetTrending(int photoId);
+        void CloseConnection();
     }
 }

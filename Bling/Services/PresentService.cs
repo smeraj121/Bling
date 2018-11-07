@@ -31,10 +31,10 @@ namespace ProofOfConcept.Services
             return new List<Photos>();
         }
 
-        public List<Photos> RecentUploads()
+        public List<Photos> RecentUploads(int? offset)
         {
             try {
-                return pr.GetRecentUploads();
+                return pr.GetRecentUploads(offset);
             }
             catch(Exception e) { }
             return new List<Photos>();

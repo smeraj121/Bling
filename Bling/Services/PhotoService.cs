@@ -61,7 +61,7 @@ namespace ProofOfConcept.Services
                 //photos = photoRepository.GetUploads().FindAll(m => m.Email==email);
                 photo = photoRepository.GetPhoto(photoId);
             }
-            catch (Exception e) { }
+            catch (Exception e) { photoRepository.CloseConnection(); }
             return photo;
         }
 
@@ -90,7 +90,13 @@ namespace ProofOfConcept.Services
 
         public bool SetTrending(int photoId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                photoRepository.SetTrending(photoId);
+                return true;
+            }
+            catch (Exception e){ photoRepository.CloseConnection(); }
+            return false;
         }
     }
 }

@@ -1,0 +1,23 @@
+﻿@model ProofOfConcept.Models.UsersDetailsCombined
+
+@{
+    ViewBag.Title = "ViewUser";
+}
+
+
+<div>
+    <h2>ViewUser</h2>
+    <h4>UsersDetailsCombined</h4>
+    <hr />
+    <div>
+        <img src="@Model.User.ProfilePic" style="width:200px" />
+    </div>
+    <div>
+        <h3>@Model.User.Username</h3>
+        <p>@Model.User.Bio</p>
+    </div>
+</div>
+<br />
+<div>
+    @Html.Partial("Contents", Model.Photo)
+</div>

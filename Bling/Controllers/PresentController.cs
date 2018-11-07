@@ -12,22 +12,27 @@ namespace ProofOfConcept.Controllers
         // GET: Present
         IPresentService ps;
         public PresentController(IPresentService ps) { this.ps = ps; }
-        public ActionResult Feature()
+        public ActionResult Feature(int? number)
         {
             Random rnd = new Random();
             ViewBag.UserId = Session["UserID"].ToString();
-            return View(ps.Featured().OrderBy(x => rnd.Next()).Take(5));
+            if (number == null)
+                return View(ps.Featured().OrderBy(x => rnd.Next()).Take(number ?? 5));
+            else
+                return PartialView(ps.Featured().OrderBy(x => rnd.Next()).Take(number ?? 5));
         }
 
-        public ActionResult Trending() {
+        public ActionResult Trending(int? number) {
             ViewBag.UserId = Session["UserID"].ToString();
-            return PartialView(ps.Trending().Take(5));
+            if (number == null) 
+            return PartialView(ps.Trending().Take(number??5));
+            else
             return View(ps.Trending().Take(5));
         }
-
-        public ActionResult RecentUploads() {
+        
+        public ActionResult RecentUploads(int? offset) {
             ViewBag.UserId = Session["UserID"].ToString();
-            return View(ps.RecentUploads().Take(6));
+            return View(ps.RecentUploads(offset??null).Take(12));
         }
     }
 }

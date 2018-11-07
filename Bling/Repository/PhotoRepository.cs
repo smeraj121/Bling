@@ -113,7 +113,14 @@ namespace ProofOfConcept.Repository
 
         public void SetTrending(int photoId)
         {
-            throw new NotImplementedException();
+            int i = 0;
+            SqlCommand cmd = new SqlCommand("UpdateTrending", sqlConnection);
+            //cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@photoId", photoId);
+            sqlConnection.Open();
+            i = cmd.ExecuteNonQuery();
+            sqlConnection.Close();
+
         }
 
         public bool UploadPic(string path, string email,string caption, string filetype)
@@ -145,6 +152,10 @@ namespace ProofOfConcept.Repository
                 return true;
             else
                 return false;
+        }
+
+        public void CloseConnection() {
+            sqlConnection.Close();
         }
     }
 }

@@ -7,6 +7,6 @@ namespace ProofOfConcept.Services
     {
         List<Photos> Featured();
         List<Photos> Trending();
-        List<Photos> RecentUploads();
+        List<Photos> RecentUploads(int? offset);
     }
 }

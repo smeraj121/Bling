@@ -46,7 +46,7 @@
 <h2>DisplayPhoto</h2>
 <hr />
 <div>
-    <span style="font-weight:bold">@Model.Email</span>
+    <span style="font-weight:bold"><a href="@Url.Action("ViewUser","Users",new {email=""+@Model.Email+""})">@Model.Email</a></span>
     <span style="float:right">@Model.DOU.ToLongDateString()</span>
     <br />
     <br /><div class="box">
