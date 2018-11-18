@@ -41,11 +41,11 @@ namespace ProofOfConcept.Repository
             return false;
         }
 
-        public UserDetails GetUserDetails(string email)
+        public UserDetails GetUserDetails(string userId)
         {
-            SqlCommand cmd = new SqlCommand("select * from UserDetails where email=@email", sqlConnection);
+            SqlCommand cmd = new SqlCommand("select * from UserDetails where userid=@userid", sqlConnection);
             //cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@userId", userId);
             SqlDataAdapter sd = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
 
@@ -64,7 +64,9 @@ namespace ProofOfConcept.Repository
                     Name = Convert.ToString(dr["name"]),
                     Gender = Convert.ToString(dr["gender"]),
                     DOB = Convert.ToDateTime(dr["dob"]),
-                    Bio=Convert.ToString(dr["bio"])
+                    Bio=Convert.ToString(dr["bio"]),
+                    Followers=Convert.ToString(dr["followers"]),
+                    Coins=Convert.ToInt32(dr["Coins"])
                 };
             }
             return user;

@@ -8,5 +8,7 @@ namespace ProofOfConcept.Repository
         List<Photos> GetFeatured();
         List<Photos> GetTrending();
         List<Photos> GetRecentUploads(int? offset);
+        List<Photos> SearchCaption(string keyword);
+        List<UserDetails> SearchUser(string keyword);
     }
 }

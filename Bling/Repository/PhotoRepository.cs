@@ -136,7 +136,7 @@ namespace ProofOfConcept.Repository
                 url[6] = "w_180,h_180,c_pad,b_black"; url[url.Length - 1] = url[url.Length - 1].Split('.')[0] + ".jpg";
                 thumbnail= string.Join("/", url);
             }
-            SqlCommand cmd = new SqlCommand("insert into AllPhotos values(@email,@path,',',',',',',@caption,@dou,@contenttype,@videothumbnail,@videogif)", sqlConnection);
+            SqlCommand cmd = new SqlCommand("UploadPic", sqlConnection);
             //cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@email", email);
             cmd.Parameters.AddWithValue("@path", path);
@@ -156,6 +156,49 @@ namespace ProofOfConcept.Repository
 
         public void CloseConnection() {
             sqlConnection.Close();
+        }
+
+        public PhotoCommentCombined GetPhotoAndComments(int photoId)
+        {
+            PhotoCommentCombined photo = new PhotoCommentCombined();
+            SqlCommand cmd = new SqlCommand("Select * from AllPhotos a, Comments c,userdetails u where a.email=u.email and a.photoid=@photoId and a.photoid=c.photoid", sqlConnection);
+            //cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@photoId", photoId);
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+
+            sqlConnection.Open();
+            sda.Fill(dt);
+            sqlConnection.Close();
+            int i = 0;
+            photo.comments = new List<Comments>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                if(i==0)
+                photo.photo = new Photos
+                {
+                    PhotoID = Convert.ToInt32(dr["photoID"]),
+                    Email = Convert.ToString(dr["Email"]),
+                    PhotoPath = Convert.ToString(dr["PhotoPath"]),
+                    LikedBy = (dr["LikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
+                    DisLikedBy = (dr["DislikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
+                    LovedBy = (dr["LovedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
+                    DOU = Convert.ToDateTime(dr["dou"]),
+                    ContentType = Convert.ToString(dr["ContentType"]),
+                    Thumbnail = Convert.ToString(dr["VideoThumbnail"]),
+                    Gif = Convert.ToString(dr["VideoGif"])
+                };
+                photo.comments.Add(new Comments() {
+                    CommentID = Convert.ToInt32(dr["CommentID"]),
+                    PhotoID = Convert.ToInt32(dr["photoID"]),
+                    Text=Convert.ToString(dr["text"]),
+                    LikedBy=Convert.ToString(dr["likedby"]),
+                    DislikedBy=Convert.ToString(dr["dislikedby"]),
+                    LovedBy=Convert.ToString(dr["lovedby"])
+                });
+                i++;
+            }
+            return photo;
         }
     }
 }

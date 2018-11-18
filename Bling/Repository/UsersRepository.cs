@@ -15,6 +15,30 @@ namespace ProofOfConcept.Repository
         {
             sqlConnection = sqlcon.Connection();
         }
+
+        public UserDetails FollowUser(string email, string userId)
+        {
+            SqlCommand cmd = new SqlCommand("FollowUser", sqlConnection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Email", email);
+            cmd.Parameters.AddWithValue("@userId", userId);
+            SqlDataAdapter sd = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+
+            sqlConnection.Open();
+            sd.Fill(dt);
+            sqlConnection.Close();
+            UserDetails user = new UserDetails();
+            foreach (DataRow dr in dt.Rows)
+            {
+                user = new UserDetails()
+                {
+                    Followers = Convert.ToString(dr["followers"])
+                };
+            }
+            return user;
+        }
+
         public UsersDetailsCombined GetUser(string email)
         {
             SqlCommand cmd = new SqlCommand("select top 10 * from UserDetails U, AllPhotos A where U.email=@email and A.email=@email", sqlConnection);
@@ -41,7 +65,8 @@ namespace ProofOfConcept.Repository
                         Name = Convert.ToString(dr["name"]),
                         Gender = Convert.ToString(dr["gender"]),
                         DOB = Convert.ToDateTime(dr["dob"]),
-                        Bio = Convert.ToString(dr["bio"])
+                        Bio = Convert.ToString(dr["bio"]),
+                        Followers=Convert.ToString(dr["followers"])
                     };
 
                 user.Photo.Add(

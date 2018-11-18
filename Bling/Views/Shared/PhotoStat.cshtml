@@ -16,7 +16,8 @@
     else
     {
         <a href="@Url.Action("DisplayPhoto", "Photos",new { @photoId=Model.PhotoID})" class="thumbnail img-responsive text-center">
-            <img src="@Model.PhotoPath" class="thumbnails" value="tyrytghfc" />
+            @{var path = Model.PhotoPath.Split('/'); path[6] = "w_300";}
+            <img src="@string.Join("/", path)" class="thumbnails" value="tyrytghfc" />
         </a>
     }
 }

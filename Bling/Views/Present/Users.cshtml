@@ -1,0 +1,26 @@
+﻿@model IEnumerable<ProofOfConcept.Models.UserDetails>
+    <style>       
+        .imagebox {
+            width: 30%;
+        }
+    </style>
+<br />
+<p style="font-size:large;color:maroon">Search Results</p>
+<table class="table">
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td class="imagebox">
+            @{var path = @item.ProfilePic.Split('/');path[6] = "w_300,h_300,c_crop,g_face/w_100";}
+            <a href="@Url.Action("ViewUser","Users",new { email = @item.Email })"><img src="@string.Join("/", path)" /></a>
+        </td>
+        <td>
+            <a href="@Url.Action("ViewUser","Users",new { email = @item.Email })">@Html.DisplayFor(modelItem => item.Username)</a><br />
+            @Html.DisplayFor(modelItem => item.Name)<br />
+            Followers: @Html.DisplayFor(modelItem => item.FollowerCount)
+        </td>
+    </tr>
+}
+
+</table>

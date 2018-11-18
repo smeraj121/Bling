@@ -6,18 +6,50 @@
 
 
 <div>
-    <h2>ViewUser</h2>
-    <h4>UsersDetailsCombined</h4>
+    <h2>@Model.User.Name</h2>
+    <h4></h4>
+    <hr />
+    <div class="user" style="height:150px">
+        <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5">
+            <img src="@Model.User.ProfilePic" style="width:100%" />
+        </div>
+        <div class="col-lg-8 col-md-7 col-sm-7 col-xs-7">
+            <h3>@Model.User.Username</h3>
+            <span style="position: absolute;right: 9%;top: 12%;font-size: 1.2em;text-align: center;">
+                <span>Followers:<span id="followcount">@Model.User.FollowerCount</span></span><br />
+                <input type="button" value=@(@Model.User.Followers.IndexOf(","+ViewBag.UserId+",")>-1?"Unfollow":"Follow") class="btn btn-primary followbtn" onclick="return false;" />
+            </span>
+            <p>@Model.User.DOB</p>
+            <p>@Model.User.Gender</p>
+            <p>@Model.User.Bio</p>
+        </div>
+    </div>
+</div>
+<div>
+    <hr />
+    <h3>Uploads</h3>
     <hr />
     <div>
-        <img src="@Model.User.ProfilePic" style="width:200px" />
-    </div>
-    <div>
-        <h3>@Model.User.Username</h3>
-        <p>@Model.User.Bio</p>
+        @Html.Partial("Contents", Model.Photo)
     </div>
 </div>
-<br />
-<div>
-    @Html.Partial("Contents", Model.Photo)
-</div>
+<script>
+    $('.followbtn').click(() =>{
+        $.ajax({
+            url: '../Users/Follow',
+            data: { email: '@Model.User.Email'},
+            type: 'POST',
+            dataType:'JSON',
+            success: function (content) {
+                if (content.Success) {
+                    (content.Followed) ? $('.followbtn').val('Unfollow'):$('.followbtn').val('Follow');
+                    $('#followcount').text(content.Followers);
+                    console.log(content)
+                }
+            },
+            error: function () {
+                alert("Oops! Something went wrong..");
+            }
+        });
+    })
+</script>

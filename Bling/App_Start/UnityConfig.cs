@@ -29,6 +29,12 @@ namespace ProofOfConcept
               container.RegisterType<IPresentService, PresentService>();
               container.RegisterType<IUsersRepository, UsersRepository>();
               container.RegisterType<IUsersService, UsersService>();
+              container.RegisterType<IAdminRepository, AdminRepository>();
+              container.RegisterType<IAdminService, AdminService>();
+              container.RegisterType<IAdminPhotoRepository, AdminPhotoRepository>();
+              container.RegisterType<IAdminPhotoService, AdminPhotoService>();
+              container.RegisterType<IAdminUsersRepository, AdminUsersRepository>();
+              container.RegisterType<IAdminUsersService, AdminUsersService>();
               //container.RegisterType<IInstitutionService, InstitutionService>();
               RegisterTypes(container);
               DependencyResolver.SetResolver(new UnityDependencyResolver(container));

@@ -36,7 +36,7 @@ namespace ProofOfConcept.Services
             {
                 return userDetails.GetUserDetails(email);
             }
-            catch { return new UserDetails(); }
+            catch(Exception e) { return new UserDetails(); }
         }
 
         public bool UploadPic(HttpPostedFileBase profilePic,string email)

@@ -10,5 +10,6 @@ namespace ProofOfConcept.Services
     public interface IUsersService
     {
         UsersDetailsCombined GetUser(string email);
+        UserDetails FollowUser(string email, string userid);
     }
 }

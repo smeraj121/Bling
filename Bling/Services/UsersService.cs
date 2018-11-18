@@ -14,6 +14,16 @@ namespace ProofOfConcept.Services
             this.usersRepository = usersRepository;
         }
 
+        public UserDetails FollowUser(string email, string userid)
+        {
+            try
+            {
+                return usersRepository.FollowUser(email,userid);
+            }
+            catch (Exception e) { }
+            return new UserDetails();
+        }
+
         public UsersDetailsCombined GetUser(string email)
         {
             try

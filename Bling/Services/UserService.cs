@@ -15,24 +15,24 @@ namespace ProofOfConcept.Services
         {
             this.userRepository = userRepository;
         }
-        public bool AddUser(User user)
+        public int AddUser(User user)
         {
             try
             {
                 return userRepository.AddUser(user);
             }
-            catch { return false; }
+            catch { }
+            return 0;
         }
 
-        public int AuthenticateUser(UserAuth user)
+        public UserAuth AuthenticateUser(Login user)
         {
-            int result = 0;
             try
             {
-                result = userRepository.AuthenticateUser(user);
+                return userRepository.AuthenticateUser(user);
             }
             catch (Exception ex) { }
-            return result;
+            return new UserAuth();
         }
     }
 }

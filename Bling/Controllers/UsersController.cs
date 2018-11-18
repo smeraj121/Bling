@@ -1,4 +1,5 @@
-﻿using ProofOfConcept.Services;
+﻿using ProofOfConcept.Models;
+using ProofOfConcept.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,13 @@ namespace ProofOfConcept.Controllers
         {
             ViewBag.UserId = Session["UserID"].ToString();
             return View (usersService.GetUser(email));
+        }
+
+        public object Follow(string email) {
+            string userid = Session["UserID"].ToString();
+            UserDetails us=usersService.FollowUser(email, userid);
+            var followed = (us.Followers.IndexOf("," + userid + ",") > -1) ? true : false;
+            return Newtonsoft.Json.JsonConvert.SerializeObject(new { Success = true, Followed = followed, Followers = us.FollowerCount }); 
         }
     }
 }

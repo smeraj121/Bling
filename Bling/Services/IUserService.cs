@@ -5,7 +5,7 @@ namespace ProofOfConcept.Services
 {
     public interface IUserService
     {
-        bool AddUser(User user);
-        int AuthenticateUser(UserAuth user);
+        int AddUser(User user);
+        UserAuth AuthenticateUser(Login user);
     }
 }

@@ -37,7 +37,7 @@
         <hr style="margin: 0 0 0 0"/>
         <div style="overflow-x:auto;">
             <div class="featured container-fluid">
-                @{ Html.RenderAction("Feature", "Present"); }
+                @{ Html.RenderAction("Feature", "Present",new { number="5"}); }
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
         <hr style="margin: 0 0 0 0" />
         <div style="overflow-x:auto;">
             <div class="trendings container-fluid">
-                @{ Html.RenderAction("Trending", "Present"); }
+                @{ Html.RenderAction("Trending", "Present",new { number="5"}); }
             </div>
         </div>
     </div>

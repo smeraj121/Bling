@@ -1,0 +1,103 @@
+﻿@model IEnumerable<ProofOfConcept.Models.Photos>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhotoPath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LikedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DisLikedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LovedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Caption)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DOU)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Likes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dislikes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Loves)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContentType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gif)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @{ if (item.ContentType.Trim() == "Video") {
+                <img src="@item.Gif" class="thumbnail" value="ghfhg"/>}
+                else
+                {
+                    var path = item.PhotoPath.Split('/'); path[6] = "w_100";
+                    <img src="@string.Join("/", path)" class="thumbnails" value="tyrytghfc" />}
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LikedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DisLikedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LovedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Caption)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DOU)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Likes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dislikes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Loves)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContentType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gif)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PhotoID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PhotoID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PhotoID })
+        </td>
+    </tr>
+}
+
+</table>

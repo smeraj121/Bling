@@ -16,10 +16,13 @@ namespace ProofOfConcept.Controllers
         {
             if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)
             {
-                var user = userDetails.GetUser(Session["Email"].ToString());
-                string[] path = user.ProfilePic.Split('/');path[6] = "w_400,h_400,c_crop,g_face,r_max/w_200";
-                var newpath = string.Join("/", path);
-                Session["ProfilePic"] = newpath;
+                var user = userDetails.GetUser(Session["UserID"].ToString());
+                if (user.ProfilePic != null)
+                {
+                    string[] path = user.ProfilePic.Split('/'); path[6] = "w_400,h_400,c_crop,g_face,r_max/w_200";
+                    var newpath = string.Join("/", path);
+                    Session["ProfilePic"] = newpath;
+                }
                 Session["Username"] = user.Username;
                 string email = (string)TempData["Email"];
                 return View();
@@ -37,7 +40,7 @@ namespace ProofOfConcept.Controllers
             
             if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)
             {
-                var user = userDetails.GetUser(Session["Email"].ToString());
+                var user = userDetails.GetUser(Session["UserID"].ToString());
                 return View(user);
             }
             else
@@ -56,8 +59,8 @@ namespace ProofOfConcept.Controllers
                 return RedirectToAction("Index", "Home");
         }
 
-        [ValidateAntiForgeryToken]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(UserDetails user)
         {
             if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)

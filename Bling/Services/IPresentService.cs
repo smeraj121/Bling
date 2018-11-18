@@ -8,5 +8,8 @@ namespace ProofOfConcept.Services
         List<Photos> Featured();
         List<Photos> Trending();
         List<Photos> RecentUploads(int? offset);
+        List<Photos> SearchPosts(string keyword);
+        List<UserDetails> SearchUsers(string keyword);
+        //T Search<T>(string keyword);
     }
 }

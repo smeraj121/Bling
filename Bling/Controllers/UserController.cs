@@ -25,13 +25,13 @@ namespace ProofOfConcept.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(User user)
         {
-            bool result = userService.AddUser(user);
-            if (result)
+            int result = userService.AddUser(user);
+            if (result!=0)
             {
                 TempData["Email"] = user.Email;
                 Session["LoggedIn"] = true;
                 Session["Email"] = user.Email;
-                Session["UserID"] = 1;
+                Session["UserID"] = result;
                 return RedirectToAction("HomePage","Content");
             }
             else
@@ -48,22 +48,35 @@ namespace ProofOfConcept.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(UserAuth user)
+        public ActionResult Login(Login user)
         {
-            int result = userService.AuthenticateUser(user);
-            if (result != 0)
+            UserAuth result = userService.AuthenticateUser(user);
+            if (result.UserID > 0)
             {
                 TempData["Email"] = user.Email;
                 Session["LoggedIn"] = true;
                 Session["Email"] = user.Email;
-                Session["UserID"] = result;
-                return RedirectToAction("HomePage", "Content");
+                Session["UserID"] = result.UserID;
+                if (result.Role.Trim() == "Admin")
+                    return RedirectToAction("Index", "Admin");
+                else
+                {
+                    if (user.ReturnURL != null) return Redirect(user.ReturnURL);
+                    else
+                        return RedirectToAction("HomePage", "Content");
+                }
             }
             else
             {
                 ViewBag.Success = "Attempt failed";
-                return View();
             }
+            return View();
+        }
+
+        public ActionResult Signout() {
+            Session.Abandon();
+            Session.RemoveAll();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -98,5 +98,13 @@ namespace ProofOfConcept.Services
             catch (Exception e){ photoRepository.CloseConnection(); }
             return false;
         }
+
+        public PhotoCommentCombined GetPhotoAndComments(int photoId) {
+            try {
+                return photoRepository.GetPhotoAndComments(photoId);
+            }
+            catch (Exception e){ }
+            return new PhotoCommentCombined();
+        }
     }
 }

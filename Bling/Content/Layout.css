@@ -1,4 +1,4 @@
-﻿input[name="searchfield"] {
+﻿input[name="keyword"] {
     margin: 7px;
     border-radius: 5px;
     padding: 3px 30px 2px 15px;
@@ -78,12 +78,11 @@ button[name="searchbtn"] {
     }
 }
 
-@media screen and (min-width:767px) {
+@media screen and (max-width:766px) {
     .sidenavspace {
         display: block;
     }
 }
-
 @media screen and (max-width:766px) {
     .sidenav {
         width: 0px;
@@ -98,9 +97,9 @@ button[name="searchbtn"] {
 }
 
 @media screen and (max-height: 450px) {
-    .sidenav {
+    /*.sidenav {
         padding-top: 15px;
-    }
+    }*/
 
         .sidenav a {
             font-size: 18px;

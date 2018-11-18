@@ -1,4 +1,5 @@
-﻿using ProofOfConcept.Services;
+﻿using ProofOfConcept.Models;
+using ProofOfConcept.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace ProofOfConcept.Controllers
 
         public ActionResult Trending(int? number) {
             ViewBag.UserId = Session["UserID"].ToString();
-            if (number == null) 
+            if (number != null) 
             return PartialView(ps.Trending().Take(number??5));
             else
             return View(ps.Trending().Take(5));
@@ -34,5 +35,20 @@ namespace ProofOfConcept.Controllers
             ViewBag.UserId = Session["UserID"].ToString();
             return View(ps.RecentUploads(offset??null).Take(12));
         }
+
+        public ActionResult SearchResults(string keyword) {
+            if (keyword.IndexOf("#") > -1) {
+                ViewBag.UserId = Session["UserID"].ToString();
+                return View("Posts", ps.SearchPosts(keyword)); }
+            else
+                return View("Users", ps.SearchUsers(keyword));
+        }
+
+        //public ActionResult SearchResults(string keyword) {
+        //    if (keyword.IndexOf('#') > -1)
+        //        return View("Posts",ps.Search<Photos>(keyword));
+        //    else
+        //        return View("Users",ps.Search<UserDetails>(keyword));
+        //}
     }
 }

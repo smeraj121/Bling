@@ -22,7 +22,7 @@ function setStats(photoid, stat) {
     changeIcons(photoid,stat.Stat);
     console.log($('#' + photoid + ' #stats').children()[0]);
 }
-function changeIcons(Stat) {
+function changeIcons(photoid,Stat) {
     $($('#' + photoid + ' #stats').children()[1]).removeClass('glyphicon-heart').addClass('glyphicon-heart-empty');
     $($('#' + photoid + ' #stats').children()[3]).removeClass('liked');
     $($('#' + photoid + ' #stats').children()[5]).removeClass('disliked');

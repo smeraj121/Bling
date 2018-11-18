@@ -34,10 +34,6 @@ namespace ProofOfConcept.Controllers
             }
             else return Newtonsoft.Json.JsonConvert.SerializeObject(new Stats() { Success = false });
         }
-
-        public ActionResult AllStats()
-        {
-            return View(); }
     }
     public class Stats {
         public int Likes;

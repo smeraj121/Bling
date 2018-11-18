@@ -1,0 +1,119 @@
+﻿@model ProofOfConcept.Models.Photos
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Photos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhotoPath)
+        </dt>
+
+        <dd>
+            @{var path = Model.PhotoPath.Split('/'); path[6] = "w_200,h_200";}
+            <img src="@string.Join("/", path)" class="thumbnails" value="tyrytghfc" />
+            @Html.DisplayFor(model => model.PhotoPath)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Likes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Likes)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LikedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LikedBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Dislikes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dislikes)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DisLikedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DisLikedBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Loves)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Loves)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LovedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LovedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Caption)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Caption)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DOU)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DOU)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContentType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContentType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Thumbnail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Thumbnail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gif)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gif)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PhotoID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

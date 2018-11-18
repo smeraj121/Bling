@@ -39,5 +39,36 @@ namespace ProofOfConcept.Services
             catch(Exception e) { }
             return new List<Photos>();
         }
+
+        public List<Photos> SearchPosts(string keyword) {
+            try {
+                return pr.SearchCaption(keyword.Substring(1));
+            }
+            catch (Exception e) { }
+            return new List<Photos>();
+        }
+
+        public List<UserDetails> SearchUsers(string keyword)
+        {
+            try
+            {
+                return pr.SearchUser(keyword);
+            }
+            catch (Exception e) { }
+            return new List<UserDetails>();
+        }
+
+        //public T Search<T>(string keyword)
+        //{
+        //    try
+        //    {
+        //        if(keyword.IndexOf('#')>-1)
+        //            return (T)Convert.ChangeType(pr.SearchCaption(keyword), typeof(T)  );
+        //        else
+        //            return (T)Convert.ChangeType(pr.SearchUser(keyword), typeof(T));
+        //    }
+        //    catch (Exception e) { }
+        //    return (T)Convert.ChangeType(new List<UserDetails>(), typeof(T));
+        //}
     }
 }

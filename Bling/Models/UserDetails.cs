@@ -37,5 +37,11 @@ namespace ProofOfConcept.Models
         public string Bio { get; set; }
 
         public string ProfilePic { get; set; }
+
+        public string Followers { get; set; }
+
+        public int FollowerCount { get { return Followers.Split(',').Count() - 2; } }
+
+        public int Coins { get; set; }
     }
 }

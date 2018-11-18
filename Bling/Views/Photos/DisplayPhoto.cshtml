@@ -19,14 +19,13 @@
     }
     .thumbnails {
         background-color: white;
-        transition: transform 1s;
+        /*transition: transform 1s;*/
         text-align:center;    }
-        .thumbnails:hover {
+        /*.thumbnails:hover {
             -ms-transform: scale(1.3); /* IE 9 */
-            -webkit-transform: scale(1.3); /* Safari 3-8 */
-            transform: scale(1.3);
-
-        }
+            /*-webkit-transform: scale(1.3); /* Safari 3-8 */
+            /*transform: scale(1.3);
+        }*/
     .photocontainer {
     height:350px;}
         .imagecontainer > a {
@@ -53,7 +52,7 @@
     <div class="imagecontainer text-center">
         @{if (Model.ContentType.Trim() == "Video")
             {
-                <video controls style="height:inherit" class="thumbnail img-responsive text-center">
+                <video controls style="height:inherit;width:100%" class="thumbnail img-responsive text-center">
                     <source id='preview' src="@Model.PhotoPath">
                     Video Preview
                 </video>
@@ -83,7 +82,7 @@
 <p>
     @Html.ActionLink("Private", "Private", new { id = Model.PhotoID }) |
     @Html.ActionLink("Delete", "Delete", new { id = Model.PhotoID }) |
-    @Html.ActionLink("Change Caption", "ChangeCaption", new { id = Model.PhotoID }) |
+    @Html.ActionLink("Change Caption", "EditPhoto", new { id = Model.PhotoID }) |
     @{if (Model.ContentType.Trim() == "Video") { @Html.ActionLink("Change Thumbnail and Preview", "ChangeThumbnail", new { id = Model.PhotoID }); } } |
 
 
