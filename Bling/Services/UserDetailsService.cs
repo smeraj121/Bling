@@ -30,24 +30,24 @@ namespace ProofOfConcept.Services
             catch { return new UserDetails(); }
         }
 
-        public UserDetails GetUser(string email)
+        public UserDetails GetUser(string userid)
         {
             try
             {
-                return userDetails.GetUserDetails(email);
+                return userDetails.GetUserDetails(userid);
             }
             catch(Exception e) { return new UserDetails(); }
         }
 
-        public bool UploadPic(HttpPostedFileBase profilePic,string email)
+        public bool UploadPic(HttpPostedFileBase profilePic,string userid)
         {
             try
             {
                 string path = CloudinaryUploads.UploadPicture(profilePic);
                 if (path != "Not Found")
                 {
-                    string result = userDetails.UploadPic(path, email);
-                    if (result != "false")
+                    string result = userDetails.UploadPic(path, userid);
+                    if (result != "false" && (result.IndexOf("defaultuser") == -1))
                         CloudinaryUploads.DeletePreviousProfilePic(result);
                     return true;
                 }

@@ -10,8 +10,8 @@
     <h4></h4>
     <hr />
     <div class="user" style="height:150px">
-        <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5">
-            <img src="@Model.User.ProfilePic" style="width:100%" />
+        <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5" style="height:inherit;">
+            <img src="@Model.User.ProfilePic" style="width:auto;height:100%;max-width:100%" />
         </div>
         <div class="col-lg-8 col-md-7 col-sm-7 col-xs-7">
             <h3>@Model.User.Username</h3>
@@ -19,10 +19,11 @@
                 <span>Followers:<span id="followcount">@Model.User.FollowerCount</span></span><br />
                 <input type="button" value=@(@Model.User.Followers.IndexOf(","+ViewBag.UserId+",")>-1?"Unfollow":"Follow") class="btn btn-primary followbtn" onclick="return false;" />
             </span>
-            <p>@Model.User.DOB</p>
+            <p>@Model.User.DOB.ToString("dd MMM, yyyy")</p>
             <p>@Model.User.Gender</p>
             <p>@Model.User.Bio</p>
         </div>
+        <button id="blockbtn">Block</button><button id="reportbtn">Report</button>
     </div>
 </div>
 <div>
@@ -34,10 +35,23 @@
     </div>
 </div>
 <script>
+    $('#blockbtn').click(() => {
+        $.ajax({
+            url: '../Users/Block',
+            data: { userId: '@Model.User.UserID' },
+            type: 'POST',
+            success: function (response) {
+                alert('User Successfully Blocked.');
+            },
+            error: function () {
+                alert('Something went wrong. Please try again later.');
+            }
+        });
+    })
     $('.followbtn').click(() =>{
         $.ajax({
             url: '../Users/Follow',
-            data: { email: '@Model.User.Email'},
+            data: { userid: '@Model.User.UserID'},
             type: 'POST',
             dataType:'JSON',
             success: function (content) {

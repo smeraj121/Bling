@@ -34,15 +34,17 @@ namespace ProofOfConcept.Repository
                     new Photos
                     {
                         PhotoID = Convert.ToInt32(dr["photoID"]),
-                        Email = Convert.ToString(dr["Email"]),
-                        PhotoPath = Convert.ToString(dr["PhotoPath"]),
+                        UserId = Convert.ToInt32(dr["userid"]),
+                        ProfilePic = Convert.ToString(dr["profilepic"]),
+                        Username = Convert.ToString(dr["username"]),
+                        PhotoPath = Convert.ToString(dr["Path"]),
                         LikedBy = (dr["LikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                         DisLikedBy = (dr["DislikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                         LovedBy = (dr["LovedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                         DOU = Convert.ToDateTime(dr["dou"]),
                         ContentType = Convert.ToString(dr["ContentType"]),
-                        Thumbnail = Convert.ToString(dr["VideoThumbnail"]),
-                        Gif = Convert.ToString(dr["VideoGif"])
+                        Video = Convert.ToString(dr["Video"]),
+                        Gif = Convert.ToString(dr["Gif"])
                     });
             }
             return photos;
@@ -67,15 +69,17 @@ namespace ProofOfConcept.Repository
                     new Photos
                     {
                         PhotoID = Convert.ToInt32(dr["photoID"]),
-                        Email = Convert.ToString(dr["Email"]),
-                        PhotoPath = Convert.ToString(dr["PhotoPath"]),
+                        UserId = Convert.ToInt32(dr["userid"]),
+                        ProfilePic=Convert.ToString(dr["profilepic"]),
+                        Username=Convert.ToString(dr["username"]),
+                        PhotoPath = Convert.ToString(dr["Path"]),
                         LikedBy = (dr["LikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                         DisLikedBy = (dr["DislikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                         LovedBy = (dr["LovedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                         DOU = Convert.ToDateTime(dr["dou"]),
                         ContentType = Convert.ToString(dr["ContentType"]),
-                        Thumbnail = Convert.ToString(dr["VideoThumbnail"]),
-                        Gif = Convert.ToString(dr["VideoGif"])
+                        Video = Convert.ToString(dr["Video"]),
+                        Gif = Convert.ToString(dr["Gif"])
                     });
             }
             return photos;
@@ -101,15 +105,17 @@ namespace ProofOfConcept.Repository
                     new Photos
                     {
                         PhotoID = Convert.ToInt32(dr["photoID"]),
-                        Email = Convert.ToString(dr["Email"]),
-                        PhotoPath = Convert.ToString(dr["PhotoPath"]),
+                        UserId = Convert.ToInt32(dr["userid"]),
+                        ProfilePic = Convert.ToString(dr["profilepic"]),
+                        Username = Convert.ToString(dr["username"]),
+                        PhotoPath = Convert.ToString(dr["Path"]),
                         LikedBy = (dr["LikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                         DisLikedBy = (dr["DislikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                         LovedBy = (dr["LovedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                         DOU = Convert.ToDateTime(dr["dou"]),
                         ContentType = Convert.ToString(dr["ContentType"]),
-                        Thumbnail = Convert.ToString(dr["VideoThumbnail"]),
-                        Gif = Convert.ToString(dr["VideoGif"])
+                        Video = Convert.ToString(dr["Video"]),
+                        Gif = Convert.ToString(dr["Gif"])
                     });
             }
             return photos.OrderByDescending(x => x.DOU).ToList();
@@ -134,15 +140,17 @@ namespace ProofOfConcept.Repository
                     new Photos
                     {
                         PhotoID = Convert.ToInt32(dr["photoID"]),
-                        Email = Convert.ToString(dr["Email"]),
-                        PhotoPath = Convert.ToString(dr["PhotoPath"]),
+                        UserId = Convert.ToInt32(dr["userid"]),
+                        ProfilePic = Convert.ToString(dr["profilepic"]),
+                        Username = Convert.ToString(dr["username"]),
+                        PhotoPath = Convert.ToString(dr["Path"]),
                         LikedBy = (dr["LikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                         DisLikedBy = (dr["DislikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                         LovedBy = (dr["LovedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                         DOU = Convert.ToDateTime(dr["dou"]),
                         ContentType = Convert.ToString(dr["ContentType"]),
-                        Thumbnail = Convert.ToString(dr["VideoThumbnail"]),
-                        Gif = Convert.ToString(dr["VideoGif"])
+                        Video = Convert.ToString(dr["Video"]),
+                        Gif = Convert.ToString(dr["Gif"])
                     });
             }
             return photos.OrderByDescending(x => x.DOU).ToList();

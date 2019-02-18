@@ -7,7 +7,7 @@ namespace ProofOfConcept.Models
 {
     public class PhotoCommentCombined
     {
-        public Photos photo { get; set; }
-        public List<Comments> comments { get; set; }
+        public Photos Photo { get; set; }
+        public List<Comments> Comments { get; set; }
     }
 }

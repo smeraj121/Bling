@@ -14,6 +14,15 @@ namespace ProofOfConcept.Services
             this.usersRepository = usersRepository;
         }
 
+        public bool BlockUser(string currentUser, string userId)
+        {
+            try { usersRepository.BlockUser(currentUser, userId);
+                return true;
+            }
+            catch (Exception e) { }
+            return false;
+        }
+
         public UserDetails FollowUser(string email, string userid)
         {
             try
@@ -24,11 +33,11 @@ namespace ProofOfConcept.Services
             return new UserDetails();
         }
 
-        public UsersDetailsCombined GetUser(string email)
+        public UsersDetailsCombined GetUser(string user)
         {
             try
             {
-                return usersRepository.GetUser(email);
+                return usersRepository.GetUser(user);
             }
             catch (Exception e) { }
             return new UsersDetailsCombined();

@@ -18,7 +18,7 @@ namespace ProofOfConcept.Controllers
         // GET: Populars
         public ActionResult Popular()
         {
-            if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)
+            if (Session["UserID"] != null)
             {
                 List<Photos> photos = photoService.GetPhotos();
                 ViewBag.UserId = Session["UserID"].ToString();

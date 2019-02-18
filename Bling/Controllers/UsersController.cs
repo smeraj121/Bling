@@ -15,17 +15,23 @@ namespace ProofOfConcept.Controllers
             this.usersService = usersService;
         }
         // GET: Users
-        public ActionResult ViewUser(string email)
+        public ActionResult ViewUser(string user)
         {
             ViewBag.UserId = Session["UserID"].ToString();
-            return View (usersService.GetUser(email));
+            return View (usersService.GetUser(user));
         }
 
-        public object Follow(string email) {
-            string userid = Session["UserID"].ToString();
-            UserDetails us=usersService.FollowUser(email, userid);
-            var followed = (us.Followers.IndexOf("," + userid + ",") > -1) ? true : false;
+        public object Follow(string userID) {
+            string currentUser = Session["UserID"].ToString();
+            UserDetails us=usersService.FollowUser(userID, currentUser);
+            var followed = (us.Followers.IndexOf("," + currentUser + ",") > -1) ? true : false;
             return Newtonsoft.Json.JsonConvert.SerializeObject(new { Success = true, Followed = followed, Followers = us.FollowerCount }); 
+        }
+
+        public object Block(string userId) {
+            string currentUser = Session["UserID"].ToString();
+            usersService.BlockUser(currentUser, userId);
+            return new object();
         }
     }
 }

@@ -7,6 +7,6 @@ namespace ProofOfConcept.Services
     {
         UserDetails GetUser(string email);
         object EditUser(UserDetails user);
-        bool UploadPic(HttpPostedFileBase profilePic,string email);
+        bool UploadPic(HttpPostedFileBase profilePic,string userid);
     }
 }

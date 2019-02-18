@@ -30,7 +30,7 @@ namespace ProofOfConcept.Controllers
             {
                 if (file != null && file.ContentLength > 0 && (file.ContentType.Contains("image") || file.ContentType.Contains("video")))
                 {
-                    bool result = photoService.UploadPic(file, Session["Email"].ToString(), caption);
+                    bool result = photoService.UploadPic(file, Session["UserID"].ToString(), caption);
                     if (result != false) {
                         if (file.ContentType.Contains("video")) {
                             ViewBag.filepath = result;
@@ -56,10 +56,10 @@ namespace ProofOfConcept.Controllers
 
         public ActionResult Uploads()
         {
-            if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)
+            if (Session["UserID"] != null)
             {
-                string email = Session["Email"].ToString();
-                List<Photos> photos = photoService.GetUploads(email);
+                string userid = Session["UserID"].ToString();
+                List<Photos> photos = photoService.GetUploads(userid);
                 ViewBag.UserId = Session["UserID"].ToString();
                 return View(photos);
             }
@@ -68,11 +68,11 @@ namespace ProofOfConcept.Controllers
 
         public ActionResult DisplayPhoto(int photoId)
         {
-            if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)
+            if (Session["UserID"] != null)
             {
-                string email = Session["Email"].ToString(); 
+                string userid = Session["UserID"].ToString(); 
                 bool result = photoService.SetTrending(photoId);
-                Photos photo = photoService.GetPhoto(photoId);
+                PhotoCommentCombined photo = photoService.GetPhotoAndComments(photoId);
                 ViewBag.UserId = Session["UserID"].ToString();
                 return View(photo);
             }

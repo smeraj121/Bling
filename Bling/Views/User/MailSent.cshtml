@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "MailSent";
+}
+
+<h2>MailSent</h2>
+
+Mail Sent to your registered mail id. Please change your password from the link sent to your mail.
+The link will expire in 15 minutes.
+<span id="defaultCountdown" class="countdown is-countdown"><span class="countdown-row countdown-show4"><span class="countdown-section"><span class="countdown-amount">43</span><span class="countdown-period">Days</span></span><span class="countdown-section"><span class="countdown-amount">5</span><span class="countdown-period">Hours</span></span><span class="countdown-section"><span class="countdown-amount">0</span><span class="countdown-period">Minutes</span></span><span class="countdown-section"><span class="countdown-amount">11</span><span class="countdown-period">Seconds</span></span></span></span>
+<script>
+    var expires = new Date(); 
+    newYear = new Date(newYear.getFullYear() + 1, 1 - 1, 1); 
+$('#defaultCountdown').countdown({until: newYear}); 
+</script>
+

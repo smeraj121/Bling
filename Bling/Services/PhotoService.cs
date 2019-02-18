@@ -15,12 +15,12 @@ namespace ProofOfConcept.Services
             this.photoRepository = photoRepository;
         }
 
-        public List<Photos> GetUploads(string email)
+        public List<Photos> GetUploads(string userid)
         {
             List<Photos> photos = new List<Photos>();
             try {
                 //photos = photoRepository.GetUploads().FindAll(m => m.Email==email);
-                photos = photoRepository.GetUploads(email);
+                photos = photoRepository.GetUploads(userid);
             }
             catch(Exception e) { }
             return photos;
@@ -65,7 +65,7 @@ namespace ProofOfConcept.Services
             return photo;
         }
 
-        public bool UploadPic(HttpPostedFileBase file, string email,string caption)
+        public bool UploadPic(HttpPostedFileBase file, string userid,string caption)
         {
             try {
                 string path="Not Found";string filetype;
@@ -79,7 +79,7 @@ namespace ProofOfConcept.Services
                 }
                 if (path != "Not Found")
                     {
-                        bool result = photoRepository.UploadPic(path, email, caption,filetype);
+                        bool result = photoRepository.UploadPic(path, userid, caption,filetype);
                         if (result)
                             return true;
                     }

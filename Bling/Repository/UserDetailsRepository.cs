@@ -72,17 +72,17 @@ namespace ProofOfConcept.Repository
             return user;
         }
 
-        public string UploadPic(string path, string email)
+        public string UploadPic(string path, string userId)
         {
-            SqlCommand cmd = new SqlCommand("select profilepic from userdetails where email=@email", sqlConnection);
-            cmd.Parameters.AddWithValue("@email", email);
+            SqlCommand cmd = new SqlCommand("select profilepic from userdetails where userid=@userid", sqlConnection);
+            cmd.Parameters.AddWithValue("@userid", userId);
             sqlConnection.Open();
             string profile = (string)cmd.ExecuteScalar();
             sqlConnection.Close();
-            SqlCommand cmd2 = new SqlCommand("update userdetails set profilepic=@profilepic where email=@email", sqlConnection);
+            SqlCommand cmd2 = new SqlCommand("update userdetails set profilepic=@profilepic where userid=@userid", sqlConnection);
             //cmd.CommandType = CommandType.StoredProcedure;
             cmd2.Parameters.AddWithValue("@profilepic", path);
-            cmd2.Parameters.AddWithValue("@email", email);
+            cmd2.Parameters.AddWithValue("@userid", userId);
             sqlConnection.Open();
             int i = cmd2.ExecuteNonQuery();
             sqlConnection.Close();

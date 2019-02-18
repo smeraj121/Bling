@@ -29,11 +29,8 @@ namespace ProofOfConcept.Repository
             cmd.Parameters.AddWithValue("@dob", user.DOB);
             cmd.Parameters.AddWithValue("@bio", "");
             cmd.Parameters.AddWithValue("@profilepic", "https://res.cloudinary.com/blinging/image/upload/w_200/defaultuser.png");
-            cmd.Parameters.Add("@id", SqlDbType.Int).Direction = ParameterDirection.Output;
-
             sqlConnection.Open();
-            cmd.ExecuteNonQuery();
-            int id = Convert.ToInt32(cmd.Parameters["@id"].Value);
+            int id = (int)cmd.ExecuteScalar();
             sqlConnection.Close();
             return id;
         }
@@ -60,6 +57,70 @@ namespace ProofOfConcept.Repository
                 };
             }
             return userauth;
+        }
+
+        public bool ForgotPassword(string email,string guid)
+        {
+            SqlCommand cmd = new SqlCommand("ForgotPassword", sqlConnection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@guid", guid);
+            sqlConnection.Open();
+            cmd.ExecuteNonQuery();
+            sqlConnection.Close();
+            return true;
+        }
+
+        public bool MatchGuid(string guid, string email)
+        {
+            SqlCommand cmd = new SqlCommand("VerifyUser", sqlConnection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@guid", guid);
+            sqlConnection.Open();
+            int i=(int)cmd.ExecuteScalar();
+            sqlConnection.Close();
+            if (i == 1)
+                return true;
+            else return false;
+        }
+
+        public bool ChangePassword(ChangePassword changePassword, string userid)
+        {
+            SqlCommand cmd = new SqlCommand("ChangePassword", sqlConnection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@userid", userid);
+            cmd.Parameters.AddWithValue("@currentpassword", changePassword.CurrentPassword);
+            cmd.Parameters.AddWithValue("@newpassword", changePassword.NewPassword);
+            sqlConnection.Open();
+            int i = (int)cmd.ExecuteScalar();
+            sqlConnection.Close();
+            if (i == 1)
+                return true;
+            else return false;
+        }
+        public bool SetPassword(SetPassword changePassword)
+        {
+            SqlCommand cmd = new SqlCommand("ChangePassword", sqlConnection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@email", changePassword.Email);
+            cmd.Parameters.AddWithValue("@newpassword", changePassword.NewPassword);
+            sqlConnection.Open();
+            int i = (int)cmd.ExecuteScalar();
+            sqlConnection.Close();
+            if (i == 1)
+                return true;
+            else return false;
+        }
+
+        public void ResetForgotKey(string email)
+        {
+            SqlCommand cmd = new SqlCommand("update userauth set guid=null,forgotpassword=0 where email=@email", sqlConnection);
+            //cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@email", email);
+            sqlConnection.Open();
+            int i = (int)cmd.ExecuteScalar();
+            sqlConnection.Close();
         }
     }
 }

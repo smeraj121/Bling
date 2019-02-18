@@ -7,5 +7,9 @@ namespace ProofOfConcept.Services
     {
         int AddUser(User user);
         UserAuth AuthenticateUser(Login user);
+        bool ForgotPassword(string email);
+        bool MatchGuid(string guid, string email);
+        bool SetPassword(SetPassword setPassword);
+        bool ChangePassword(ChangePassword changePassword,string userid);
     }
 }

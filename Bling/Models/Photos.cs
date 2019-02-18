@@ -11,7 +11,11 @@ namespace ProofOfConcept.Models
         [Key]
         public int PhotoID { get; set; }
 
-        public string Email { get; set; }
+        public int UserId { get; set; }
+
+        public string ProfilePic { get; set; }
+
+        public string Username { get; set; }
 
         public string PhotoPath{ get; set; }
 
@@ -29,18 +33,15 @@ namespace ProofOfConcept.Models
         [DataType(DataType.Date)]
         public DateTime DOU { get; set; }
 
-        public int Likes { get { return LikedBy.Split(',').Count()-2;  }
-            /*get { if (LikedBy[0] != 0) return LikedBy.Count(); else return 0; }*/ }
+        public int Likes { get { return LikedBy.Split(',').Count()-2;  } }
 
-        public int Dislikes { get {/* if (DisLikedBy.Split(',')[0] == "") return DisLikedBy.Split(',').Count() - 2; else */return DisLikedBy.Split(',').Count()-2; } 
-        /*get { if (DisLikedBy[0] != 0) return DisLikedBy.Count(); else return 0; }*/ }
+        public int Dislikes { get {return DisLikedBy.Split(',').Count()-2; } }
 
-        public int Loves { get {/* if (LovedBy.Split(',')[0] == "") return LovedBy.Split(',').Count() - 2; else */return LovedBy.Split(',').Count()-2; }
-            /*get { if (LovedBy[0] != 0) return LovedBy.Count(); else return 0; }*/ }
+        public int Loves { get {return LovedBy.Split(',').Count()-2; } }
 
         public string ContentType { get; set; }
 
-        public string Thumbnail { get; set; }
+        public string Video { get; set; }
 
         public string Gif { get; set; }
 

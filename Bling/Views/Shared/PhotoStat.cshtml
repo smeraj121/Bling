@@ -3,7 +3,7 @@
 @{if (Model.ContentType.Trim() == "Video")
     {
         <a href="@Url.Action("DisplayPhoto", "Photos",new { @photoId=Model.PhotoID})" class="thumbnail img-responsive text-center">
-            <img src="@Model.Thumbnail" class="thumbnails" value="tyrytghfc" />
+            <img src="@Model.PhotoPath" class="thumbnails" value="tyrytghfc" />
             <input type="hidden" value="@Model.Gif" />
         </a>
         @*<div class="thumbnail img-responsive text-center">

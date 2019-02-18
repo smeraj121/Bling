@@ -9,6 +9,8 @@ namespace ProofOfConcept.Models
     {
         public int CommentID { get; set; }
         public int PhotoID { get; set; }
+        public int UserId { get; set; }
+        public string ProfilePic { get; set; }
         public string Text { get; set; }
         public string LikedBy { get; set; }
         public string LovedBy { get; set; }

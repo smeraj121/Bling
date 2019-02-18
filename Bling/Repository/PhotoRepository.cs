@@ -20,7 +20,7 @@ namespace ProofOfConcept.Repository
         public Photos GetPhoto(int photoId)
         {
             Photos photo = new Photos();
-            SqlCommand cmd = new SqlCommand("Select * from AllPhotos where photoid=@photoId", sqlConnection);
+            SqlCommand cmd = new SqlCommand("Select * from AllPhotos a, userdetails u where a.photoid=@photoId and u.userid=a.userid", sqlConnection);
             //cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@photoId", photoId);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
@@ -34,26 +34,27 @@ namespace ProofOfConcept.Repository
             {
                 photo=new Photos{
                         PhotoID = Convert.ToInt32(dr["photoID"]),
-                        Email = Convert.ToString(dr["Email"]),
-                        PhotoPath = Convert.ToString(dr["PhotoPath"]),
+                        UserId = Convert.ToInt32(dr["userid"]),
+                        ProfilePic = Convert.ToString(dr["profilepic"]),
+                        PhotoPath = Convert.ToString(dr["Path"]),
                         LikedBy = (dr["LikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                         DisLikedBy = (dr["DislikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                         LovedBy = (dr["LovedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                         DOU = Convert.ToDateTime(dr["dou"]),
                         ContentType = Convert.ToString(dr["ContentType"]),
-                        Thumbnail = Convert.ToString(dr["VideoThumbnail"]),
-                        Gif = Convert.ToString(dr["VideoGif"])
+                        Video = Convert.ToString(dr["Video"]),
+                        Gif = Convert.ToString(dr["Gif"])
                     };
             }
             return photo;
         }
 
-        public List<Photos> GetUploads(string email)
+        public List<Photos> GetUploads(string userid)
         {
             List<Photos> photos = new List<Photos>();
-            SqlCommand cmd = new SqlCommand("Select * from AllPhotos where email=@email", sqlConnection);
+            SqlCommand cmd = new SqlCommand("Select * from AllPhotos a,userdetails u where a.userid=@userid and a.userid=u.userid", sqlConnection);
             //cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@userid", userid);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
 
@@ -67,15 +68,17 @@ namespace ProofOfConcept.Repository
                     new Photos
                     {
                         PhotoID = Convert.ToInt32(dr["photoID"]),
-                        Email = Convert.ToString(dr["Email"]),
-                        PhotoPath = Convert.ToString(dr["PhotoPath"]),
-                        LikedBy = (dr["LikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
-                        DisLikedBy = (dr["DislikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
+                        UserId = Convert.ToInt32(dr["userid"]),
+                        Username=Convert.ToString(dr["username"]),
+                        ProfilePic = Convert.ToString(dr["profilepic"]),
+                        PhotoPath = Convert.ToString(dr["Path"]),
+                        LikedBy = (dr["LikedBy"]).ToString(),
+                        DisLikedBy = (dr["DislikedBy"]).ToString(),
                         LovedBy = (dr["LovedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                         DOU = Convert.ToDateTime(dr["dou"]),
                         ContentType = Convert.ToString(dr["ContentType"]),
-                        Thumbnail= Convert.ToString(dr["VideoThumbnail"]),
-                        Gif= Convert.ToString(dr["VideoGif"])
+                        Video= Convert.ToString(dr["Video"]),
+                        Gif= Convert.ToString(dr["Gif"])
                     });
             }
             return photos;
@@ -99,8 +102,7 @@ namespace ProofOfConcept.Repository
                     new Photos
                     {
                         PhotoID = Convert.ToInt32(dr["photoID"]),
-                        Email = Convert.ToString(dr["Email"]),
-                        PhotoPath = Convert.ToString(dr["PhotoPath"]),
+                        PhotoPath = Convert.ToString(dr["Path"]),
                         LikedBy = (dr["LikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c!="")?c:"0")).ToArray()*/,
                         DisLikedBy = (dr["DislikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                         LovedBy = (dr["LovedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
@@ -123,7 +125,7 @@ namespace ProofOfConcept.Repository
 
         }
 
-        public bool UploadPic(string path, string email,string caption, string filetype)
+        public bool UploadPic(string path, string userid,string caption, string filetype)
         {
             int i = 0;
             string dou = DateTime.Now.ToString("dd MMM, yyyy");
@@ -137,13 +139,13 @@ namespace ProofOfConcept.Repository
                 thumbnail= string.Join("/", url);
             }
             SqlCommand cmd = new SqlCommand("UploadPic", sqlConnection);
-            //cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@email", email);
-            cmd.Parameters.AddWithValue("@path", path);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@userid", userid);
+            cmd.Parameters.AddWithValue("@path", (thumbnail != "0") ? thumbnail : path);
             cmd.Parameters.AddWithValue("@caption", caption);
             cmd.Parameters.AddWithValue("@dou", dou);
-            cmd.Parameters.AddWithValue("@dcontenttype", filetype);
-            cmd.Parameters.AddWithValue("@videothumbnail", thumbnail);
+            cmd.Parameters.AddWithValue("@contenttype", filetype);
+            cmd.Parameters.AddWithValue("@video", (thumbnail != "0")?path:thumbnail);
             cmd.Parameters.AddWithValue("@videogif", gif);
             sqlConnection.Open();
             i = cmd.ExecuteNonQuery();
@@ -161,7 +163,7 @@ namespace ProofOfConcept.Repository
         public PhotoCommentCombined GetPhotoAndComments(int photoId)
         {
             PhotoCommentCombined photo = new PhotoCommentCombined();
-            SqlCommand cmd = new SqlCommand("Select * from AllPhotos a, Comments c,userdetails u where a.email=u.email and a.photoid=@photoId and a.photoid=c.photoid", sqlConnection);
+            SqlCommand cmd = new SqlCommand("select * from AllPhotos P Left join UserDetails U on U.Userid = P.userid Left join comments C on C.PhotoId = P.PhotoId where P.PhotoId = @photoId", sqlConnection);
             //cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@photoId", photoId);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
@@ -171,26 +173,31 @@ namespace ProofOfConcept.Repository
             sda.Fill(dt);
             sqlConnection.Close();
             int i = 0;
-            photo.comments = new List<Comments>();
+            photo.Comments = new List<Comments>();
             foreach (DataRow dr in dt.Rows)
             {
                 if(i==0)
-                photo.photo = new Photos
+                photo.Photo = new Photos
                 {
                     PhotoID = Convert.ToInt32(dr["photoID"]),
-                    Email = Convert.ToString(dr["Email"]),
-                    PhotoPath = Convert.ToString(dr["PhotoPath"]),
+                    UserId = Convert.ToInt32(dr["userid"]),
+                    Username=Convert.ToString(dr["username"]),
+                    ProfilePic = Convert.ToString(dr["profilepic"]),
+                    PhotoPath = Convert.ToString(dr["Path"]),
                     LikedBy = (dr["LikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                     DisLikedBy = (dr["DislikedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                     LovedBy = (dr["LovedBy"]).ToString()/*.Trim(',').Split(',').Select(c => Convert.ToInt32((c != "") ? c : "0")).ToArray()*/,
                     DOU = Convert.ToDateTime(dr["dou"]),
                     ContentType = Convert.ToString(dr["ContentType"]),
-                    Thumbnail = Convert.ToString(dr["VideoThumbnail"]),
-                    Gif = Convert.ToString(dr["VideoGif"])
+                    Video = Convert.ToString(dr["Video"]),
+                    Gif = Convert.ToString(dr["Gif"])
                 };
-                photo.comments.Add(new Comments() {
+                if ((dr["CommentID"]).ToString() != "") 
+                photo.Comments.Add(new Comments() {
                     CommentID = Convert.ToInt32(dr["CommentID"]),
+                    UserId=Convert.ToInt32(dr["userid"]),
                     PhotoID = Convert.ToInt32(dr["photoID"]),
+                    ProfilePic =Convert.ToString(dr["profilepic"]),
                     Text=Convert.ToString(dr["text"]),
                     LikedBy=Convert.ToString(dr["likedby"]),
                     DislikedBy=Convert.ToString(dr["dislikedby"]),

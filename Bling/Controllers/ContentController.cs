@@ -14,7 +14,7 @@ namespace ProofOfConcept.Controllers
         }
         public ActionResult HomePage()
         {
-            if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)
+            if (Session["UserID"] != null)
             {
                 var user = userDetails.GetUser(Session["UserID"].ToString());
                 if (user.ProfilePic != null)
@@ -38,7 +38,7 @@ namespace ProofOfConcept.Controllers
                 loggedin = (bool)Session["LoggedIn"];
             }
             
-            if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)
+            if (Session["UserID"] != null)
             {
                 var user = userDetails.GetUser(Session["UserID"].ToString());
                 return View(user);
@@ -50,7 +50,7 @@ namespace ProofOfConcept.Controllers
 
         public ActionResult Edit(int id)
         {
-            if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)
+            if (Session["UserID"] != null)
             {
                 var user = userDetails.GetUser(Session["Email"].ToString());
                 return View(user);
@@ -63,7 +63,7 @@ namespace ProofOfConcept.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(UserDetails user)
         {
-            if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)
+            if (Session["UserID"] != null)
             {
                 if (ModelState.IsValid)
                 {
@@ -78,7 +78,7 @@ namespace ProofOfConcept.Controllers
 
         public ActionResult ChangeProfilePic()
         {
-            if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)
+            if (Session["UserID"] != null)
             {
                 //return RedirectToAction("Picture","UploadPic",new { uploadType= "Change Profile Pic" }) ;
                 ViewBag.UploadType = "Change Profile Pic";
@@ -91,11 +91,11 @@ namespace ProofOfConcept.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ChangeProfilePic(HttpPostedFileBase picture) {
-            if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"] == true)
+            if (Session["UserID"] != null)
             {
                 if (picture.ContentLength > 0 && picture.ContentType.Contains("image"))
                 {
-                    bool result = userDetails.UploadPic(picture, Session["Email"].ToString());
+                    bool result = userDetails.UploadPic(picture, Session["UserID"].ToString());
                     if (result == false)
                     {
                         ViewBag.Status = "Upload Failed!!!";

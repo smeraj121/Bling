@@ -49,6 +49,12 @@
     <Reference Include="CloudinaryDotNet, Version=1.3.1.0, Culture=neutral, PublicKeyToken=c8234dc617ae7841, processorArchitecture=MSIL">
       <HintPath>C:\Users\thinksysuser\documents\visual studio 2017\Projects\ProfilerApp\packages\CloudinaryDotNet.1.3.1\lib\net40\CloudinaryDotNet.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>c:\users\thinksysuser\documents\visual studio 2017\Projects\ProfilerApp\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -159,43 +165,80 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminPhotoController.cs" />
+    <Compile Include="Controllers\AdminUsersController.cs" />
     <Compile Include="Controllers\ContentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhotosController.cs" />
     <Compile Include="Controllers\PhotoStatsController.cs" />
     <Compile Include="Controllers\PopularsController.cs" />
+    <Compile Include="Controllers\PresentController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChangePassword.cs" />
+    <Compile Include="Models\Comments.cs" />
+    <Compile Include="Models\DBReader.cs" />
+    <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\PhotoCommentCombined.cs" />
     <Compile Include="Models\Photos.cs" />
     <Compile Include="Models\PhotoStats.cs" />
+    <Compile Include="Models\ProofOfConceptContext.cs" />
+    <Compile Include="Models\SetPassword.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserAuth.cs" />
     <Compile Include="Models\UserDetails.cs" />
+    <Compile Include="Models\UsersDetailsCombined.cs" />
+    <Compile Include="Models\Videos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AdminPhotoRepository.cs" />
+    <Compile Include="Repository\AdminRepository.cs" />
+    <Compile Include="Repository\AdminUsersRepository.cs" />
+    <Compile Include="Repository\IAdminPhotoRepository.cs" />
+    <Compile Include="Repository\IAdminRepository.cs" />
+    <Compile Include="Repository\IAdminUsersRepository.cs" />
     <Compile Include="Repository\IPhotoRepository.cs" />
     <Compile Include="Repository\IPhotoStatsRepository.cs" />
+    <Compile Include="Repository\IPopularsRepository.cs" />
     <Compile Include="Repository\IUserDetailsRepository.cs" />
     <Compile Include="Repository\IUserRepository.cs" />
+    <Compile Include="Repository\IUsersRepository.cs" />
     <Compile Include="Repository\PhotoRepository.cs" />
     <Compile Include="Repository\PhotoStatsRepository.cs" />
+    <Compile Include="Repository\PopularsRepository.cs" />
     <Compile Include="Repository\SQLConnections.cs" />
     <Compile Include="Repository\UserDetailsRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Repository\UsersRepository.cs" />
+    <Compile Include="Services\AdminPhotoService.cs" />
+    <Compile Include="Services\AdminService.cs" />
+    <Compile Include="Services\AdminUsersService.cs" />
     <Compile Include="Services\CloudinaryUploads.cs" />
+    <Compile Include="Services\IAdminPhotoService.cs" />
+    <Compile Include="Services\IAdminService.cs" />
+    <Compile Include="Services\IAdminUsersService.cs" />
     <Compile Include="Services\IPhotoService.cs" />
     <Compile Include="Services\IPhotoStatsService.cs" />
+    <Compile Include="Services\IPresentService.cs" />
     <Compile Include="Services\IUserDetailsService.cs" />
     <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\IUsersService.cs" />
     <Compile Include="Services\PhotoService.cs" />
     <Compile Include="Services\PhotoStatsService.cs" />
+    <Compile Include="Services\PresentService.cs" />
     <Compile Include="Services\UserDetailsService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Services\UsersService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Layout.css" />
+    <Content Include="Content\stats.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -213,9 +256,11 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Layout.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\UI.js" />
     <Content Include="Scripts\Uploads.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -231,7 +276,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\Content\HomePage.cshtml" />
     <Content Include="Views\Content\MyProfile.cshtml" />
@@ -242,12 +286,36 @@
     <Content Include="Views\Photos\Uploads.cshtml" />
     <Content Include="Views\Photos\Upload.cshtml" />
     <Content Include="Views\Shared\_LayoutHome.cshtml" />
-    <Content Include="Views\Photos\PhotoStat.cshtml" />
-    <Content Include="Views\PhotoStats\PhotoStat.cshtml" />
-    <Content Include="Views\Populars\Popular.cshtml" />
+    <Content Include="Views\Shared\PhotoStat.cshtml" />
+    <Content Include="Views\Showcase\Featured.cshtml" />
+    <Content Include="Views\Present\Feature.cshtml" />
+    <Content Include="Views\Photos\Thumbnail.cshtml" />
+    <Content Include="Views\Shared\Contents.cshtml" />
+    <Content Include="Views\Present\RecentUploads.cshtml" />
+    <Content Include="Views\Users\ViewUser.cshtml" />
+    <Content Include="Views\Present\Trending.cshtml" />
+    <Content Include="Views\Present\Posts.cshtml" />
+    <Content Include="Views\Present\Users.cshtml" />
+    <Content Include="Views\Admin\Login.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Admins.cshtml" />
+    <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\AdminPhoto\Index.cshtml" />
+    <Content Include="Views\AdminPhoto\Edit.cshtml" />
+    <Content Include="Views\AdminPhoto\Details.cshtml" />
+    <Content Include="Views\AdminPhoto\Delete.cshtml" />
+    <Content Include="Views\AdminUsers\Index.cshtml" />
+    <Content Include="Views\AdminUsers\Edit.cshtml" />
+    <Content Include="Views\AdminUsers\Details.cshtml" />
+    <Content Include="Views\Photos\DisplayPhoto.cshtml" />
+    <Content Include="Views\User\ForgotPassword.cshtml" />
+    <Content Include="Views\User\MailSent.cshtml" />
+    <Content Include="Views\User\SetPassword.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Settings\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
